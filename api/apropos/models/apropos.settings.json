@@ -1,0 +1,19 @@
+{
+  "connection": "default",
+  "collectionName": "apropos",
+  "info": {
+    "name": "apropos"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  }
+}

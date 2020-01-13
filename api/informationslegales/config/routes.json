@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/informationslegales",
+      "handler": "informationslegales.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/informationslegales/count",
+      "handler": "informationslegales.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/informationslegales/:id",
+      "handler": "informationslegales.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/informationslegales",
+      "handler": "informationslegales.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/informationslegales/:id",
+      "handler": "informationslegales.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/informationslegales/:id",
+      "handler": "informationslegales.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

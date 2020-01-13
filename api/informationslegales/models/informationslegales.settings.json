@@ -1,0 +1,19 @@
+{
+  "info": {
+    "name": "informationslegales"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "type": "richtext"
+    }
+  },
+  "connection": "default",
+  "collectionName": "informationslegales"
+}

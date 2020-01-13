@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/quisommesnous",
+      "handler": "quisommesnous.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/quisommesnous/count",
+      "handler": "quisommesnous.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/quisommesnous/:id",
+      "handler": "quisommesnous.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/quisommesnous",
+      "handler": "quisommesnous.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/quisommesnous/:id",
+      "handler": "quisommesnous.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/quisommesnous/:id",
+      "handler": "quisommesnous.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
