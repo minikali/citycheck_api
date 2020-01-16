@@ -1,0 +1,31 @@
+{
+  "connection": "default",
+  "collectionName": "messages",
+  "info": {
+    "name": "Message"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "name": {
+      "type": "text"
+    },
+    "email": {
+      "type": "email"
+    },
+    "message": {
+      "type": "string"
+    },
+    "file": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "message_id": {
+      "type": "string"
+    }
+  }
+}

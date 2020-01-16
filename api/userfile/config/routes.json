@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/userfiles",
+      "handler": "userfile.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/userfiles/count",
+      "handler": "userfile.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/userfiles/:id",
+      "handler": "userfile.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/userfiles",
+      "handler": "userfile.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/userfiles/:id",
+      "handler": "userfile.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/userfiles/:id",
+      "handler": "userfile.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

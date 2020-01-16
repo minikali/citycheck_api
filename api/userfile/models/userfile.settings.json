@@ -1,0 +1,22 @@
+{
+  "info": {
+    "name": "userfile"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "file": {
+      "collection": "file",
+      "via": "related",
+      "plugin": "upload",
+      "required": false
+    },
+    "message_id": {
+      "type": "string"
+    }
+  },
+  "connection": "default",
+  "collectionName": "userfiles"
+}
