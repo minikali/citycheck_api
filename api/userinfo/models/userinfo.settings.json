@@ -1,4 +1,6 @@
 {
+  "connection": "default",
+  "collectionName": "userinfos",
   "info": {
     "name": "Userinfo"
   },
@@ -13,10 +15,8 @@
     "userId": {
       "type": "string"
     },
-    "lastConnection": {
+    "last_connection": {
       "type": "datetime"
     }
-  },
-  "connection": "default",
-  "collectionName": "userinfos"
+  }
 }
