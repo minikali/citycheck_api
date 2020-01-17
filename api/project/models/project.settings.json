@@ -37,6 +37,9 @@
       "type": "component",
       "repeatable": true,
       "component": "suggest.project-suggest"
+    },
+    "userinfo": {
+      "model": "userinfo"
     }
   }
 }
