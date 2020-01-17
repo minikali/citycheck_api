@@ -26,6 +26,17 @@
     },
     "phase": {
       "type": "integer"
+    },
+    "userConf": {
+      "type": "component",
+      "repeatable": true,
+      "component": "confirm.project-confirm",
+      "required": false
+    },
+    "userSuggest": {
+      "type": "component",
+      "repeatable": true,
+      "component": "suggest.project-suggest"
     }
   }
 }

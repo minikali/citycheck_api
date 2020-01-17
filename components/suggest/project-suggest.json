@@ -1,0 +1,26 @@
+{
+  "connection": "default",
+  "collectionName": "components_suggest_project_suggests",
+  "info": {
+    "name": "ProjectSuggest",
+    "icon": "bell"
+  },
+  "options": {},
+  "attributes": {
+    "description": {
+      "type": "text"
+    },
+    "justify": {
+      "type": "text"
+    },
+    "createdAt": {
+      "type": "date"
+    },
+    "phase": {
+      "type": "integer"
+    },
+    "userinfo": {
+      "model": "userinfo"
+    }
+  }
+}
