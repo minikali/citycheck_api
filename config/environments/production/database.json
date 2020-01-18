@@ -5,11 +5,11 @@
       "connector": "bookshelf",
       "settings": {
         "client": "mysql",
-        "host": "g9fej9rujq0yt0cd.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-        "port": "3306",
-        "database": "zdwdt7aezedwwws5",
-        "username": "pv6c8xo7sc5anrlz",
-        "password": "o45gpe3ppnit9lex"
+        "host": "${process.env.DATABASE_HOST || '127.0.0.1'}",
+        "port": "${process.env.DATABASE_PORT || 27017}",
+        "database": "${process.env.DATABASE_NAME || 'strapi'}",
+        "username": "${process.env.DATABASE_USERNAME || ''}",
+        "password": "${process.env.DATABASE_PASSWORD || ''}"
       },
       "options": {}
     }
