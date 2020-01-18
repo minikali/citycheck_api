@@ -5,11 +5,11 @@
       "connector": "bookshelf",
       "settings": {
         "client": "mysql",
-        "host": "${process.env.DATABASE_HOST || '127.0.0.1'}",
-        "port": "${process.env.DATABASE_PORT || 27017}",
-        "database": "${process.env.DATABASE_NAME || 'strapi'}",
-        "username": "${process.env.DATABASE_USERNAME || ''}",
-        "password": "${process.env.DATABASE_PASSWORD || ''}"
+        "host": "db5000273798.hosting-data.io",
+        "port": "3306",
+        "database": "dbs267238",
+        "username": "dbu446108",
+        "password": "aEue?bit1"
       },
       "options": {}
     }
