@@ -5,11 +5,11 @@
       "connector": "bookshelf",
       "settings": {
         "client": "mysql",
-        "host": "db5000273798.hosting-data.io",
+        "host": "g9fej9rujq0yt0cd.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
         "port": "3306",
-        "database": "dbs267238",
-        "username": "dbu446108",
-        "password": "aEue?bit1"
+        "database": "zdwdt7aezedwwws5",
+        "username": "pv6c8xo7sc5anrlz",
+        "password": "o45gpe3ppnit9lex"
       },
       "options": {}
     }
