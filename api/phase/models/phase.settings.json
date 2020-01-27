@@ -1,0 +1,19 @@
+{
+  "connection": "default",
+  "collectionName": "phases",
+  "info": {
+    "name": "phase"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "phaseName": {
+      "type": "string"
+    },
+    "phaseNumber": {
+      "type": "integer"
+    }
+  }
+}

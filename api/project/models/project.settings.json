@@ -40,6 +40,11 @@
     },
     "userinfo": {
       "model": "userinfo"
+    },
+    "valid": {
+      "type": "boolean",
+      "default": false,
+      "required": true
     }
   }
 }
