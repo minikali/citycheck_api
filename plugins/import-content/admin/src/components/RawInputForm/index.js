@@ -59,7 +59,7 @@ const RawInputForm = ({ onRequestAnalysis, loadingAnalysis }) => {
       <Row className={'row'}>
         <Button
           label={'Analyze'}
-          onClick={() => analyze()}
+          onClick={() =>{analyze()}}
         />
       </Row>
     </div>

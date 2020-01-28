@@ -58,10 +58,6 @@ const UploadFileForm = ({onRequestAnalysis, loadingAnalysis}) => {
       });
   };
 
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
-
   return (
     <div className={"col-12"}>
         <Row className={"row"}>
