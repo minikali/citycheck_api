@@ -106,13 +106,13 @@ function LeftMenuLinkContainer({ plugins, ...rest }) {
 
   return (
     <Wrapper>
-      {linkSections}
       <div>
         <p className="title">
           <FormattedMessage {...messages.plugins} />
         </p>
         <ul className="list">{pluginsLinks}</ul>
       </div>
+      {linkSections}
       <div>
         <p className="title">
           <FormattedMessage {...messages.general} />

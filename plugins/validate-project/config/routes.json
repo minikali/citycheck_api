@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/",
+      "handler": "ValidateProject.index",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/validateProject",
+      "handler": "ValidateProject.validateProject",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

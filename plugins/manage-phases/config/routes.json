@@ -1,0 +1,20 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/",
+      "handler": "ManagePhases.index",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/submitPhases",
+      "handler": "ManagePhases.submitPhases",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
