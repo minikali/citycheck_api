@@ -10,11 +10,14 @@ import {
   request
 } from "strapi-helper-plugin";
 import Project from '../../components/Project';
+import useScript from "../../../../../manage-phases/admin/src/hook/useScript";
 
 const HomePage = () => {
   const [projects, setProjects] = useState(null);
   const [phases, setPhases] = useState(null);
-
+  const [isGooglePlacesAutoLoaded] = useScript(
+    "https://maps.googleapis.com/maps/api/js?key=AIzaSyAr2ugrwLtCWxdkM1qLJbgbCPzQqr9oC14&libraries=places"
+  );
   const getNotValidatedProjects = async () => {
     const response = await request("/projects");
 
@@ -48,6 +51,7 @@ const HomePage = () => {
         currentPhase={phase ? phase : 1}
         phasesOption={phases}
         description={description}
+        isGooglePlacesAutoLoaded={isGooglePlacesAutoLoaded}
       />
     );
   });
@@ -59,7 +63,7 @@ const HomePage = () => {
         description={"Validate projects from users and imports"}
       />
       <div className="row">
-        <div className={"col-6"}>
+        <div className={"col-8"}>
           {Projects && Projects.length > 0 ? Projects : <h3>No project to validate</h3>}
         </div>
       </div>

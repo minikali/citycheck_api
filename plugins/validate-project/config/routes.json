@@ -15,6 +15,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/deleteProject",
+      "handler": "ValidateProject.deleteProject",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

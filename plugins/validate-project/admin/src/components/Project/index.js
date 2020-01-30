@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Select, Textarea, InputText, Button, Label } from "@buffetjs/core";
 import { request } from "strapi-helper-plugin";
-
+import LocationSearchInput from "../LocationSearchInput";
 
 const Project = props => {
   const [show, setShow] = useState(true);
+  const [coord, setCoord] = useState(null);
   const [state, setState] = useState({
     id: props.id,
     title: props.title,
@@ -15,12 +16,32 @@ const Project = props => {
 
   const validateProject = async () => {
     try {
-      await request("/validate-project/validateProject", {
+      const response = await request("/validate-project/validateProject", {
         method: "POST",
-        body: state
+        body: {
+          ...state,
+          ...coord
+        }
       });
+      console.log(response);
 
       strapi.notification.info(`Project ${props.id}:${state.title} validated`);
+      setShow(false);
+    } catch (error) {
+      strapi.notification.error(`${error}`);
+    }
+  };
+
+  const deleteProject = async () => {
+    try {
+      await request("/validate-project/deleteProject", {
+        method: "POST",
+        body: {
+          id: props.id
+        }
+      });
+
+      strapi.notification.info(`Project ${props.id} deleted`);
       setShow(false);
     } catch (error) {
       strapi.notification.error(`${error}`);
@@ -50,17 +71,15 @@ const Project = props => {
           setState({ ...state, phase: parseInt(value, 10) });
         }}
       />
-      <Label htmlFor="address" style={{ marginTop: "10px" }}>Address</Label>
-      <InputText
-        id={`address-${props.id}`}
-        name={"address"}
-        placeholder={"No address"}
-        type={"text"}
-        value={state.address}
-        onChange={({ target: { value } }) => {
-          setState({ ...state, address: value });
+      <Label htmlFor="address" style={{ marginTop: "10px" }}>{`Address [${coord ? `${coord.lat},${coord.lng}` : "Cannot find coordinates"}]`}</Label>
+      {props.isGooglePlacesAutoLoaded && <LocationSearchInput
+        address={state.address}
+        setAddress={addr => {
+          setState({ ...state, address: addr });
         }}
-      />
+        setCoord={setCoord}
+        id={state.id}
+      />}
       <Label htmlFor="description" style={{ marginTop: "10px" }}>Description</Label>
       <Textarea
         id={`description-${props.id}`}
@@ -72,13 +91,26 @@ const Project = props => {
           setState({ ...state, description: value });
         }}
       />
-      <Button
-        style={{ margin: "12px auto 0px auto" }}
-        label={"Validate"}
-        onClick={() => {
-          validateProject();
-        }}
-      />
+      <div className="row">
+        <div className={"col-8"}>
+          <Button
+            style={{ margin: "12px auto 0px auto" }}
+            label={"Validate"}
+            onClick={() => {
+              validateProject();
+            }}
+            disabled={!coord ? true : false}
+          />
+          <Button
+            style={{ margin: "12px auto 0px 10px" }}
+            label={"Delete"}
+            onClick={() => {
+              deleteProject();
+            }}
+          />
+        </div>
+      </div>
+
     </div>
   );
 };
