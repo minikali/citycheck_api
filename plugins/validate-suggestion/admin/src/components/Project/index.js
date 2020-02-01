@@ -19,7 +19,7 @@ const Project = ({ project, phases }) => {
       });
 
       const suggestion = suggestions.filter(suggest => suggest.id === data.id);
-      const username = suggestion[0].userinfo.username;
+      const username = suggestion[0] && suggestion[0].userinfo && suggestion[0].userinfo.username ? suggestion[0].userinfo.username : "";
       strapi.notification.info(`Suggestion ${data.id} by ${username} validated`);
       setSuggestion(...suggestions.filter(suggest => suggest.id !== data.id));
       return true;
