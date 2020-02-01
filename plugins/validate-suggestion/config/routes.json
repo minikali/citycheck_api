@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/",
+      "handler": "ValidateSuggestion.index",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/validateSuggestion",
+      "handler": "ValidateSuggestion.validateSuggestion",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/deleteSuggestion",
+      "handler": "ValidateSuggestion.deleteSuggestion",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

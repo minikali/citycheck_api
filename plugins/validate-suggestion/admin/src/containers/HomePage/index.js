@@ -10,19 +10,25 @@ import {
   request
 } from "strapi-helper-plugin";
 import Project from '../../components/Project';
-import useScript from "../../../../../manage-phases/admin/src/hook/useScript";
+
+// import PropTypes from 'prop-types';
 
 const HomePage = () => {
   const [projects, setProjects] = useState(null);
   const [phases, setPhases] = useState(null);
-  const [isGooglePlacesAutoLoaded] = useScript(
-    "https://maps.googleapis.com/maps/api/js?key=AIzaSyAr2ugrwLtCWxdkM1qLJbgbCPzQqr9oC14&libraries=places"
-  );
-  const getNotValidatedProjects = async () => {
+
+  const getNotValidatedSuggestions = async () => {
     const response = await request("/projects");
 
-    setProjects(response.filter(project => project.valid !== true));
-  };
+    const projectWithSuggestions = response
+    .filter(({ userSuggest }) => userSuggest && userSuggest.length > 0)
+    .filter(({ userSuggest }) => {
+      const suggestionCount = userSuggest
+      .filter(suggestion => !suggestion.valid || suggestion.valid === false);
+      return suggestionCount.length > 0
+    });
+    setProjects(projectWithSuggestions);
+  }
 
   const getPhasesName = async () => {
     const response = await request("/phases");
@@ -36,36 +42,28 @@ const HomePage = () => {
       }));
   }
 
+
   useEffect(() => {
-    getNotValidatedProjects();
+    getNotValidatedSuggestions();
     getPhasesName();
   }, []);
 
   const Projects = projects && phases && projects.map(project => {
-    const { id, title, address, phase, description, justify } = project;
+    console.log(project);
     return (
-      <Project
-        id={id}
-        title={title}
-        address={address}
-        currentPhase={phase ? phase : 1}
-        phasesOption={phases}
-        description={description}
-        justify={justify}
-        isGooglePlacesAutoLoaded={isGooglePlacesAutoLoaded}
-      />
+      <Project project={project} phases={phases}/>
     );
   });
 
   return (
     <div className={"container-fluid"} style={{ padding: "18px 30px" }}>
       <PluginHeader
-        title={"Validate Projects"}
-        description={"Validate projects from users and imports"}
+        title={"Validate Suggestions"}
+        description={"Validate suggestions from users"}
       />
       <div className="row">
-        <div className={"col-8"}>
-          {Projects && Projects.length > 0 ? Projects : <h3>No project to validate</h3>}
+        <div className={"col-12"}>
+          {Projects}
         </div>
       </div>
     </div>

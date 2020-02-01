@@ -11,7 +11,8 @@ const Project = props => {
     title: props.title,
     phase: props.currentPhase,
     address: props.address,
-    description: props.description
+    description: props.description,
+    justify: props.justify
   });
 
   const validateProject = async () => {
@@ -23,7 +24,6 @@ const Project = props => {
           ...coord
         }
       });
-      console.log(response);
 
       strapi.notification.info(`Project ${props.id}:${state.title} validated`);
       setShow(false);
@@ -89,6 +89,17 @@ const Project = props => {
         value={state.description}
         onChange={({ target: { value } }) => {
           setState({ ...state, description: value });
+        }}
+      />
+      <Label htmlFor="justify" style={{ marginTop: "10px" }}>Justify</Label>
+      <Textarea
+        id={`justify-${props.id}`}
+        name={"justify"}
+        placeholder={"No justify"}
+        type={"text"}
+        value={state.justify}
+        onChange={({ target: { value } }) => {
+          setState({ ...state, justify: value });
         }}
       />
       <div className="row">

@@ -7,9 +7,6 @@
   },
   "options": {},
   "attributes": {
-    "description": {
-      "type": "text"
-    },
     "justify": {
       "type": "text"
     },
@@ -21,6 +18,9 @@
     },
     "userinfo": {
       "model": "userinfo"
+    },
+    "valid": {
+      "type": "boolean"
     }
   }
 }
