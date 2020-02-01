@@ -21,7 +21,7 @@ const Suggestion =
     return (
       show && <div className={"container-fluid"} style={{ padding: "18px 30px" }}>
         <h2>{`Suggestion id ${suggestion.id}`}</h2>
-        <p>{`Suggested by ${suggestion.userinfo.username} [id:${suggestion.userinfo.id}]`}</p>
+        <p>{`Suggested by ${suggestion.userinfo && suggestion.userinfo.username ? suggestion.userinfo.username : ""} [id:${suggestion.userinfo.id}]`}</p>
         <Label htmlFor="phase" style={{ marginTop: "10px" }}>Phase</Label>
         <Select
           name="phase"

@@ -39,7 +39,7 @@ const Project = ({ project, phases }) => {
         }
       });
       const suggestion = suggestions.filter(suggest => suggest.id === suggestionId);
-      const username = suggestion[0].userinfo.username;
+      const username = suggestion[0] && suggestion[0].userinfo && suggestion[0].userinfo.username ? suggestion[0].userinfo.username : "";
       strapi.notification.info(`Suggestion ${suggestionId} by ${username} deleted`);
       console.log(suggestions.filter(suggest => suggest.id !== suggestionId));
       setSuggestion(suggestions.filter(suggest => suggest.id !== suggestionId), () => {
