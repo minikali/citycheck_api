@@ -14,20 +14,17 @@ module.exports = {
    * @return {Object}
    */
   validateSuggestion: async ctx => {
-    const { projectId, suggestion, suggestionList } = ctx.request.body;
+    const { projectId, suggestion } = ctx.request.body;
     try {
+      const project = await strapi.query("project").find({ id: projectId});
       let response = await strapi
         .query("project")
         .update(
           { id: projectId },
           {
-            userSuggest: [
-              ...suggestionList,
-              {
-                id: suggestion.id,
-                valid: true
-              }
-            ]
+            userSuggest: project[0].userSuggest.map(userSuggest => {
+             return userSuggest.id === suggestion.id ? { ...userSuggest, valid: true } : userSuggest;
+            })
           });
       ctx.send(response);
       response = await strapi
@@ -43,26 +40,16 @@ module.exports = {
       console.error(e);
     }
   },
-  index: async (ctx) => {
-    // Add your own logic here.
-
-    // Send 200 `ok`
-    ctx.send({
-      message: 'ok'
-    });
-  },
   deleteSuggestion: async ctx => {
-    const { project, suggestionId } = ctx.request.body;
-    const userSuggestList = project.userSuggest.filter(suggestion => suggestion.id !== suggestionId);
+    const { projectId, suggestionId } = ctx.request.body;
     try {
+      const project = await strapi.query("project").find({ id: projectId});
       const response = await strapi
       .query("project")
       .update({
-        id: project.id
+        id: projectId
       }, {
-        userSuggest: [
-          ...userSuggestList
-        ]
+        userSuggest: project[0].userSuggest.filter(suggestion => suggestion.id !== suggestionId)
       });
     ctx.send(response);
     } catch (e) {

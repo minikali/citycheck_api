@@ -17,43 +17,41 @@ const HomePage = () => {
   const [projects, setProjects] = useState(null);
   const [phases, setPhases] = useState(null);
 
-  const getNotValidatedSuggestions = async () => {
-    const response = await request("/projects");
-
-    const projectWithSuggestions = response
-    .filter(({ userSuggest }) => userSuggest && userSuggest.length > 0)
-    .filter(({ userSuggest }) => {
-      const suggestionCount = userSuggest
-      .filter(suggestion => !suggestion.valid || suggestion.valid === false);
-      return suggestionCount.length > 0
-    });
-    setProjects(projectWithSuggestions);
-  }
+  const getProjectWithSuggestions = async () => {
+    try {
+      // Returns an array of object
+      const response = await request("/projects");
+      // Remove projects without suggestions
+      const projectWithSuggestion = response.filter(({ userSuggest }) => userSuggest.length > 0);
+      return projectWithSuggestion;
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
+  };
 
   const getPhasesName = async () => {
     const response = await request("/phases");
-
-    setPhases(
-      response.map(phase => {
-        return {
-          label: phase.phaseName,
-          value: phase.phaseNumber
-        }
-      }));
-  }
-
+    return response.map(phase => {
+      return {
+        label: phase.phaseName,
+        value: phase.phaseNumber
+      }
+    });
+  };
 
   useEffect(() => {
-    getNotValidatedSuggestions();
-    getPhasesName();
+    getProjectWithSuggestions().then(projectWithSuggestion => setProjects(projectWithSuggestion));
+    getPhasesName().then(phases => setPhases(phases));
   }, []);
 
-  const Projects = projects && phases && projects.map(project => {
-    console.log(project);
+  const Projects = (projects && phases) ? projects.map(project => {
+    const projectWithInvalidSuggestion = project.userSuggest.filter(suggestion => suggestion.valid === false || suggestion.valid === null);
+    if (projectWithInvalidSuggestion.length === 0) return null;
     return (
-      <Project project={project} phases={phases}/>
+      <Project project={project} phases={phases} />
     );
-  });
+  }) : [];
 
   return (
     <div className={"container-fluid"} style={{ padding: "18px 30px" }}>
@@ -64,6 +62,7 @@ const HomePage = () => {
       <div className="row">
         <div className={"col-12"}>
           {Projects}
+          {!Projects && <div>No suggestion to validate</div>}
         </div>
       </div>
     </div>

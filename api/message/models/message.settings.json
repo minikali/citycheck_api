@@ -10,13 +10,13 @@
   },
   "attributes": {
     "name": {
-      "type": "text"
+      "type": "string"
     },
     "email": {
       "type": "email"
     },
     "message": {
-      "type": "string"
+      "type": "text"
     },
     "file": {
       "collection": "file",

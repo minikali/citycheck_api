@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Textarea, Select, Button, Label } from "@buffetjs/core";
 import { request } from "strapi-helper-plugin";
 
@@ -10,18 +10,17 @@ const Suggestion =
     validateSuggestion,
     deleteSuggestion
   }) => {
-    const [show, setShow] = useState(true);
     const [state, setState] = useState({
       id: suggestion.id,
       justify: suggestion.justify,
       phase: suggestion.phase
     });
     // const { id, justify, phase, createdAt, userinfo } = suggestion;
-
+  console.log(suggestion.id, suggestion);
     return (
-      show && <div className={"container-fluid"} style={{ padding: "18px 30px" }}>
+      (!suggestion.valid || suggestion.valid === false) && <div className={"container-fluid"} style={{ padding: "18px 30px" }}>
         <h2>{`Suggestion id ${suggestion.id}`}</h2>
-        <p>{`Suggested by ${suggestion.userinfo && suggestion.userinfo.username ? suggestion.userinfo.username : ""} [id:${suggestion.userinfo.id}]`}</p>
+        <p>{`Suggested by ${suggestion.userinfo && suggestion.userinfo.username ? `${suggestion.userinfo.username} [id:${suggestion.userinfo.id}]` : ""} `}</p>
         <Label htmlFor="phase" style={{ marginTop: "10px" }}>Phase</Label>
         <Select
           name="phase"
@@ -48,16 +47,14 @@ const Suggestion =
               style={{ margin: "12px auto 0px auto" }}
               label={"Validate"}
               onClick={() => {
-                const response = validateSuggestion(state);
-                setShow(response ? false : true);
+                validateSuggestion(state);
               }}
             />
             <Button
               style={{ margin: "12px auto 0px 10px" }}
               label={"Delete"}
               onClick={() => {
-                const response = deleteSuggestion(suggestion.id);
-                setShow(response ? false : true);
+                deleteSuggestion(suggestion.id);
               }}
             />
           </div>

@@ -24,14 +24,6 @@ module.exports = {
         });
     ctx.send(response);
   },
-  index: async (ctx) => {
-    // Add your own logic here.
-
-    // Send 200 `ok`
-    ctx.send({
-      message: 'ok'
-    });
-  },
   deleteProject: async ctx => {
     const { id } = ctx.request.body;
     const response = await strapi
