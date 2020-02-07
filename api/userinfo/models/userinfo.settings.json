@@ -12,11 +12,14 @@
     "username": {
       "type": "string"
     },
-    "userId": {
+    "socialId": {
       "type": "string"
     },
     "last_connection": {
       "type": "datetime"
+    },
+    "social": {
+      "type": "string"
     }
   }
 }

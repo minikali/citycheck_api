@@ -15,8 +15,6 @@ import HomeImg from "../../assets/img/home.png";
 import SuggestImg from "../../assets/img/suggest.png";
 import SuggestModifImg from "../../assets/img/suggest-modif.png";
 // import PropTypes from 'prop-types';
-import pluginId from '../../pluginId';
-import { Select, Textarea, InputText, Button, Label } from "@buffetjs/core";
 import "./style.css";
 
 const HomePage = () => {
@@ -192,7 +190,6 @@ const HomePage = () => {
 
   const initLayout = async () => {
       const response = await request("/layouts");
-      console.log("initLayout", response);
       setHome(home.map(layout => {
         const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
         if (layoutFromDb.length > 0) return layoutFromDb[0];
