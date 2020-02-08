@@ -232,11 +232,18 @@ const HomePage = () => {
           formData.append("refId", layout.id);
           formData.append("field", "media");
           try {
-            const request = new XMLHttpRequest();
+            // const request = new XMLHttpRequest();
 
-            request.open('POST', '/upload');
+            // request.open('POST', '/upload');
 
-            const res = await request.send(formData);
+            // const res = await request.send(formData);
+            fetch("https://checkcheckapi.herokuapp.com/upload", {
+              method: "POST",
+              body: formData
+            }).then(r => r.json)
+            .then(res => {
+              console.log(res);
+            })
             console.log(res);
           } catch (err) {
             console.error(err);
