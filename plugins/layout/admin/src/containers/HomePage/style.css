@@ -31,6 +31,20 @@
 }
 
 /* === home === */
+.layout .home form .img-wrapper {
+  position: absolute;
+  top: 79px;
+  left: 10px;
+  border: 1px solid black;
+  width: 1075px;
+  height: 120px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.layout .home form .img-wrapper img {
+  width: 100%;
+}
 
 .layout .home form input:nth-child(1) {
   top: 11px;
@@ -51,6 +65,13 @@
     font-size: 16px;
     padding: 5px;
     background-color: #FFF;
+}
+
+.layout .home form input:nth-child(3) {
+  top: 200px;
+  left: 10px;
+  padding: 5px;
+  background-color: #FFF;
 }
 
 /* === suggest === */
@@ -198,4 +219,45 @@
   left: 36px;
   width: 250px;
   font-size: 15px;
+}
+
+/* === footer === */
+
+.layout .footer form .img-wrapper {
+  border: 1px solid black;
+    top: 84px;
+    left: 123px;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+}
+
+.layout .footer form .img-wrapper img {
+  width: 100%;
+}
+
+.layout .footer form input:nth-child(1) {
+  top: 82px;
+    left: 308px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.layout .footer form input:nth-child(2) {
+  top: 82px;
+    left: 589px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.layout .footer form input:nth-child(3) {
+  top: 82px;
+  left: 867px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.layout .footer form input:nth-child(4) {
+  top: 188px;
+    left: 21px;
 }

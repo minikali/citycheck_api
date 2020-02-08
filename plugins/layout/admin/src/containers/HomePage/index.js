@@ -14,6 +14,8 @@ import HistoryImg from "../../assets/img/history.png";
 import HomeImg from "../../assets/img/home.png";
 import SuggestImg from "../../assets/img/suggest.png";
 import SuggestModifImg from "../../assets/img/suggest-modif.png";
+import FooterImg from "../../assets/img/footer.png";
+import { Button } from "@buffetjs/core";
 // import PropTypes from 'prop-types';
 import "./style.css";
 
@@ -25,7 +27,7 @@ const HomePage = () => {
       label: "title",
       value: "Vous faire profiter pleinement de vos projets",
       media: null
-    },  
+    },
     {
       id: null,
       component: "home",
@@ -33,8 +35,15 @@ const HomePage = () => {
       value: "Entrez une address",
       media: null
     },
+    {
+      id: null,
+      component: "home",
+      label: "banner",
+      value: "banner",
+      media: null
+    },
   ]);
-  
+
   const [suggest, setSuggest] = useState([
     {
       id: null,
@@ -176,11 +185,63 @@ const HomePage = () => {
     }
   ]);
 
+  const [footer, setFooter] = useState([
+    {
+      id: null,
+      component: "footer",
+      label: "legal",
+      value: "Informations légales",
+      media: null
+    },
+    {
+      id: null,
+      component: "footer",
+      label: "about",
+      value: "À propos",
+      media: null
+    },
+    {
+      id: null,
+      component: "footer",
+      label: "share",
+      value: "Partager",
+      media: null
+    },
+    {
+      id: null,
+      component: "footer",
+      label: "logo",
+      value: "logo",
+      media: null
+    }
+  ]);
+
   const updateLayout = async body => {
     try {
+      // Post the layout
       await request("/layout/updateLayout", {
         method: "POST",
         body: body
+      });
+      // Post media if any
+      body.map(async layout => {
+        if (layout.media) {
+          const formData = new FormData();
+          formData.append("files", layout.media);
+          formData.append("ref", "layout");
+          formData.append("refId", layout.id);
+          formData.append("field", "media");
+          try {
+            const request = new XMLHttpRequest();
+
+            request.open('POST', '/upload');
+
+            const res = await request.send(formData);
+            console.log(res);
+          } catch (err) {
+            console.error(err);
+          }
+        }
       });
       strapi.notification.info(`${body[0].component} layout saved`);
     } catch (error) {
@@ -189,49 +250,70 @@ const HomePage = () => {
   };
 
   const initLayout = async () => {
-      const response = await request("/layouts");
-      setHome(home.map(layout => {
-        const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
-        if (layoutFromDb.length > 0) return layoutFromDb[0];
-        return layout;
-      }));
-      setSuggest(suggest.map(layout => {
-        const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
-        if (layoutFromDb.length > 0) return layoutFromDb[0];
-        return layout;
-      }));
-      setContact(contact.map(layout => {
-        const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
-        if (layoutFromDb.length > 0) return layoutFromDb[0];
-        return layout;
-      }));
-      setCard(card.map(layout => {
-        const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
-        if (layoutFromDb.length > 0) return layoutFromDb[0];
-        return layout;
-      }));
-      setSuggModif(suggModif.map(layout => {
-        const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
-        if (layoutFromDb.length > 0) return layoutFromDb[0];
-        return layout;
-      }));
-      setHistory(history.map(layout => {
-        const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
-        if (layoutFromDb.length > 0) return layoutFromDb[0];
-        return layout;
-      }));
+    const response = await request("/layouts");
+    setHome(home.map(layout => {
+      const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
+      if (layoutFromDb.length > 0) return layoutFromDb[0];
+      return layout;
+    }));
+    setSuggest(suggest.map(layout => {
+      const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
+      if (layoutFromDb.length > 0) return layoutFromDb[0];
+      return layout;
+    }));
+    setContact(contact.map(layout => {
+      const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
+      if (layoutFromDb.length > 0) return layoutFromDb[0];
+      return layout;
+    }));
+    setCard(card.map(layout => {
+      const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
+      if (layoutFromDb.length > 0) return layoutFromDb[0];
+      return layout;
+    }));
+    setSuggModif(suggModif.map(layout => {
+      const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
+      if (layoutFromDb.length > 0) return layoutFromDb[0];
+      return layout;
+    }));
+    setHistory(history.map(layout => {
+      const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
+      if (layoutFromDb.length > 0) return layoutFromDb[0];
+      return layout;
+    }));
+    setFooter(footer.map(layout => {
+      const layoutFromDb = response.filter(({ component, label }) => component === layout.component && label === layout.label)
+      if (layoutFromDb.length > 0) return layoutFromDb[0];
+      return layout;
+    }));
   };
 
   useEffect(() => {
     initLayout();
   }, []);
 
+  const [banner, setBanner] = useState(null);
+  const [logo, setLogo] = useState(null);
+  useEffect(() => {
+    console.log(home);
+    const banner = home.filter(layout => layout.label === "banner")[0];
+    if (banner && banner.media && banner.media.url)
+      setBanner(`${window.location.origin}/${banner.media.url}`);
+  }, [home]);
+
+  useEffect(() => {
+    console.log(footer);
+    const logo = footer.filter(layout => layout.label === "logo")[0];
+    if (logo && logo.media && logo.media.url)
+      setLogo(`${window.location.origin}/${logo.media.url}`);
+  }, [footer]);
+
   return (
     <div className="layout">
       <div className="home">
         <PluginHeader
           title={"Accueil"}
-          description={"Editable: Title, banner"}
+          description={"Editable: Title, Address, banner"}
         />
         <div className="page">
           <div className="wrapper">
@@ -263,6 +345,19 @@ const HomePage = () => {
                 )
               )}
             />
+            <input type="file"
+              id="banner" name="banner"
+              accept="image/png, image/jpeg"
+              onChange={e => setHome(
+                home.map(
+                  layout =>
+                    layout.label === "banner" ?
+                      { ...layout, media: e.target.files[0] } : layout
+                )
+              )} />
+            <div className="img-wrapper">
+              <img src={banner} />
+            </div>
             <Button
               type="submit"
               style={{ margin: "20px auto 40px 10px" }}
@@ -567,6 +662,73 @@ const HomePage = () => {
                 )
               )}
             />
+            <Button
+              type="submit"
+              style={{ margin: "20px auto 40px 10px" }}
+              label={"Save"}
+            />
+          </form>
+        </div>
+      </div>
+      <div className="footer">
+        <PluginHeader
+          title={"Footer"}
+          description={"Editable: Logo, labels"}
+        />
+        <div className="page">
+          <div className="wrapper">
+            <img src={FooterImg} alt="Footer" />
+          </div>
+          <form onSubmit={e => {
+            e.preventDefault();
+            updateLayout(footer);
+          }}>
+            <input
+              type="text"
+              value={footer.filter(layout => layout.label === "legal")[0].value}
+              onChange={e => setFooter(
+                footer.map(
+                  layout =>
+                    layout.label === "legal" ?
+                      { ...layout, value: e.target.value } : layout
+                )
+              )}
+            />
+            <input
+              type="text"
+              value={footer.filter(layout => layout.label === "about")[0].value}
+              onChange={e => setFooter(
+                footer.map(
+                  layout =>
+                    layout.label === "about" ?
+                      { ...layout, value: e.target.value } : layout
+                )
+              )}
+            />
+            <input
+              type="text"
+              value={footer.filter(layout => layout.label === "share")[0].value}
+              onChange={e => setFooter(
+                footer.map(
+                  layout =>
+                    layout.label === "share" ?
+                      { ...layout, value: e.target.value } : layout
+                )
+              )}
+            />
+            <input type="file"
+              id="banner" name="banner"
+              accept="image/png, image/jpeg"
+              onChange={e => setFooter(
+                footer.map(
+                  layout =>
+                    layout.label === "logo" ?
+                      { ...layout, media: e.target.files[0] } : layout
+                )
+              )} />
+            <div className="img-wrapper">
+              <img src={logo} />
+            </div>
             <Button
               type="submit"
               style={{ margin: "20px auto 40px 10px" }}
