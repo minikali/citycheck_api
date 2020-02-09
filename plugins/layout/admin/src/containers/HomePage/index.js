@@ -218,6 +218,14 @@ const HomePage = () => {
 
   const updateLayout = async body => {
     try {
+    const request = new XMLHttpRequest();
+
+    const formData = new FormData();
+
+    const formElements = formElement.elements;
+
+    const data = {};
+    
       // Post the layout
       await request("/layout/updateLayout", {
         method: "POST",
