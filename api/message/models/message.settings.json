@@ -18,14 +18,11 @@
     "message": {
       "type": "text"
     },
-    "file": {
+    "files": {
       "collection": "file",
       "via": "related",
       "plugin": "upload",
       "required": false
-    },
-    "message_id": {
-      "type": "string"
     }
   }
 }

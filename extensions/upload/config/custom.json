@@ -1,0 +1,16 @@
+{
+  "environments": [
+      {
+          "name": "development",
+          "active": true
+      },
+      {
+          "name": "production",
+          "active": true
+      },
+      {
+          "name": "staging",
+          "active": false
+      }
+  ]
+}
