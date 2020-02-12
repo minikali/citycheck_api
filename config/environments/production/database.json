@@ -20,6 +20,7 @@
           "createTimeoutMillis": 30000,
           "acquireTimeoutMillis": 30000
         }
+      }
     }
   }
 }
