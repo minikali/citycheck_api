@@ -5,11 +5,11 @@
       "connector": "bookshelf",
       "settings": {
         "client": "mysql",
-        "host": "hzzhllh158.mysql.db",
-        "port": "27017",
-        "database": "hzzhllh158",
-        "username": "hzzhllh158",
-        "password": "Citycheck31"
+        "host": "${process.env.DATABASE_HOST || 'hzzhllh158.mysql.db'}",
+        "port": "${process.env.DATABASE_PORT || 27017}",
+        "database": "${process.env.DATABASE_NAME || 'hzzhllh158'}",
+        "username": "${process.env.DATABASE_USERNAME || 'hzzhllh158'}",
+        "password": "${process.env.DATABASE_PASSWORD || 'Citycheck31'}"
       },
       "options": {}
     }

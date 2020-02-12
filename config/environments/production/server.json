@@ -1,5 +1,5 @@
 {
-  "host": "citycheck.fr",
+  "host": "hzzhllh.cluster024.hosting.ovh.net",
   "port": "${process.env.PORT || 1337}",
   "production": true,
   "proxy": {
