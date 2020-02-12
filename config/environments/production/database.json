@@ -13,15 +13,15 @@
       },
       "options": {
         "debug": false,
-        "acquireConnectionTimeout": 100000,
+        "acquireConnectionTimeout": 1000000,
         "pool": {
           "min": 0,
           "max": 10,
-          "createTimeoutMillis": 30000,
-          "acquireTimeoutMillis": 600000,
-          "idleTimeoutMillis": 20000,
-          "reapIntervalMillis": 20000,
-          "createRetryIntervalMillis": 200
+          "createTimeoutMillis": 300000,
+          "acquireTimeoutMillis": 6000000,
+          "idleTimeoutMillis": 200000,
+          "reapIntervalMillis": 200000,
+          "createRetryIntervalMillis": 2000
         }
       }
     }
