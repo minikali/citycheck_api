@@ -7,9 +7,7 @@
         "client": "mysql",
         "host": "${process.env.DATABASE_HOST || 'hzzhllh158.mysql.db'}",
         "port": "${process.env.DATABASE_PORT || 27017}",
-        "database": "${process.env.DATABASE_NAME || 'hzzhllh158'}",
-        "username": "",
-        "password": ""
+        "database": "${process.env.DATABASE_NAME || 'hzzhllh158'}"
       },
       "options": {
         "debug": true,
