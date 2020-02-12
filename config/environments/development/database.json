@@ -5,22 +5,13 @@
       "connector": "bookshelf",
       "settings": {
         "client": "mysql",
-        "host": "${process.env.DATABASE_HOST || 'hzzhllh158.mysql.db'}",
-        "port": "${process.env.DATABASE_PORT || 27017}",
-        "database": "${process.env.DATABASE_NAME || 'hzzhllh158'}",
-        "username": "${process.env.DATABASE_USERNAME || 'hzzhllh158'}",
-        "password": "${process.env.DATABASE_PASSWORD || 'Citycheck31'}"
+        "database": "checkcheck",
+        "host": "127.0.0.1",
+        "port": 3306,
+        "username": "admin",
+        "password": ""
       },
-      "options": {
-        "debug": true,
-        "pool": {
-          "min": 0,
-          "max": 10,
-          "idleTimeoutMillis": 60000,
-          "createTimeoutMillis": 60000,
-          "acquireTimeoutMillis": 60000
-        }
-      }
+      "options": {}
     }
   }
 }

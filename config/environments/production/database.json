@@ -5,6 +5,7 @@
       "connector": "bookshelf",
       "settings": {
         "client": "mysql",
+        "uri": "mysql://hzzhllh158:Citycheck31@hzzhllh158.mysql.db:27017/hzzhllh158",
         "host": "${process.env.DATABASE_HOST || 'hzzhllh158.mysql.db'}",
         "port": "${process.env.DATABASE_PORT || 27017}",
         "database": "${process.env.DATABASE_NAME || 'hzzhllh158'}",
