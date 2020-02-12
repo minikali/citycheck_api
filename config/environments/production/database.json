@@ -5,7 +5,6 @@
       "connector": "bookshelf",
       "settings": {
         "client": "mysql",
-        "uri": "mysql://hzzhllh158:Citycheck31@hzzhllh158.mysql.db:27017/hzzhllh158",
         "host": "${process.env.DATABASE_HOST || 'hzzhllh158.mysql.db'}",
         "port": "${process.env.DATABASE_PORT || 27017}",
         "database": "${process.env.DATABASE_NAME || 'hzzhllh158'}",
@@ -13,13 +12,16 @@
         "password": "${process.env.DATABASE_PASSWORD || 'Citycheck31'}"
       },
       "options": {
-        "debug": true,
+        "debug": false,
+        "acquireConnectionTimeout": 100000,
         "pool": {
           "min": 0,
           "max": 10,
-          "idleTimeoutMillis": 60000,
-          "createTimeoutMillis": 60000,
-          "acquireTimeoutMillis": 60000
+          "createTimeoutMillis": 30000,
+          "acquireTimeoutMillis": 600000,
+          "idleTimeoutMillis": 20000,
+          "reapIntervalMillis": 20000,
+          "createRetryIntervalMillis": 200
         }
       }
     }
