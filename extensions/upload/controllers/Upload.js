@@ -100,6 +100,27 @@ module.exports = {
 
     const uploadedFiles = await uploadService.upload(enhancedFiles, config);
 
+    // send an email if it is a message content-type
+    if (ref === "message") {
+      const message = await strapi.query(ref).find({ id: refId });
+      const Message = message[0];
+
+      const attachments = Message.files.map(file => {
+        return {
+          filename: file.name,
+          path: `public${file.url}`,
+        }
+      })
+
+      await strapi.plugins['email'].services.email.send({
+        to: 'contact@citycheck.fr',
+        from: message[0].email,
+        subject: `Message de ${message[0].name} depuis citycheck.fr`,
+        text: `${message[0].message}`,
+        attachments: attachments
+      });
+    }
+
     // Send 200 `ok`
     ctx.send(
       uploadedFiles.map(file => {

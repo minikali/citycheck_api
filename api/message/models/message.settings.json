@@ -23,6 +23,10 @@
       "via": "related",
       "plugin": "upload",
       "required": false
+    },
+    "has_file": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
