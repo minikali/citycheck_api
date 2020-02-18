@@ -7,14 +7,15 @@
  */
 
 
-const updateSocial = async (id, url, ctx) => {
+const updateSocial = async (id, url, active, ctx) => {
   try {
     await strapi
       .query("social")
       .update(
         { id: id },
         {
-          url: url
+          url: url,
+          active: active
         });
     ctx.send({
       message: `Social ${id} updated`
@@ -24,14 +25,15 @@ const updateSocial = async (id, url, ctx) => {
   }
 };
 
-const createSocial = async (label, url, ctx) => {
+const createSocial = async (label, url, active, ctx) => {
   try {
     await strapi
       .query("social")
       .create(
         {
           label: label,
-          url: url
+          url: url,
+          active: active
         });
     ctx.send({
       message: `Social ${label} created`
@@ -54,9 +56,9 @@ module.exports = {
 
     socials.forEach(social => {
       if (!social.id)
-        createSocial(social.label, social.url, ctx);
+        createSocial(social.label, social.url, social.active, ctx);
       else
-        updateSocial(social.id, social.url, ctx);
+        updateSocial(social.id, social.url, social.active, ctx);
     });
     ctx.send({
       message: 'Social share link updated'

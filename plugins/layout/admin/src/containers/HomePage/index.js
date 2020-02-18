@@ -218,45 +218,10 @@ const HomePage = () => {
 
   const updateLayout = async body => {
     try {
-    const request = new XMLHttpRequest();
-
-    const formData = new FormData();
-
-    const formElements = formElement.elements;
-
-    const data = {};
-    
       // Post the layout
       await request("/layout/updateLayout", {
         method: "POST",
         body: body
-      });
-      // Post media if any
-      body.map(async layout => {
-        if (layout.media) {
-          const formData = new FormData();
-          formData.append("files", layout.media);
-          formData.append("ref", "layout");
-          formData.append("refId", layout.id);
-          formData.append("field", "media");
-          try {
-            // const request = new XMLHttpRequest();
-
-            // request.open('POST', '/upload');
-
-            // const res = await request.send(formData);
-            fetch("https://checkcheckapi.herokuapp.com/upload", {
-              method: "POST",
-              body: formData
-            }).then(r => r.json)
-            .then(res => {
-              console.log(res);
-            })
-            // console.log(res);
-          } catch (err) {
-            console.error(err);
-          }
-        }
       });
       strapi.notification.info(`${body[0].component} layout saved`);
     } catch (error) {
@@ -360,7 +325,7 @@ const HomePage = () => {
                 )
               )}
             />
-            <input type="file"
+            {/* <input type="file"
               id="banner" name="banner"
               accept="image/png, image/jpeg"
               onChange={e => setHome(
@@ -372,7 +337,7 @@ const HomePage = () => {
               )} />
             <div className="img-wrapper">
               <img src={banner} />
-            </div>
+            </div> */}
             <Button
               type="submit"
               style={{ margin: "20px auto 40px 10px" }}
@@ -731,7 +696,7 @@ const HomePage = () => {
                 )
               )}
             />
-            <input type="file"
+            {/* <input type="file"
               id="banner" name="banner"
               accept="image/png, image/jpeg"
               onChange={e => setFooter(
@@ -743,7 +708,7 @@ const HomePage = () => {
               )} />
             <div className="img-wrapper">
               <img src={logo} />
-            </div>
+            </div> */}
             <Button
               type="submit"
               style={{ margin: "20px auto 40px 10px" }}
