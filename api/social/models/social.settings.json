@@ -1,4 +1,6 @@
 {
+  "connection": "default",
+  "collectionName": "socials",
   "info": {
     "name": "social"
   },
@@ -12,8 +14,9 @@
     },
     "url": {
       "type": "string"
+    },
+    "active": {
+      "type": "boolean"
     }
-  },
-  "connection": "default",
-  "collectionName": "socials"
+  }
 }
