@@ -11,7 +11,19 @@
         "username": "${process.env.DATABASE_USERNAME || ''}",
         "password": "${process.env.DATABASE_PASSWORD || ''}"
       },
-      "options": {}
+      "options": {
+        "debug": false,
+        "acquireConnectionTimeout": 10000000,
+        "pool": {
+          "min": 0,
+          "max": 100,
+          "createTimeoutMillis": 3000000,
+          "acquireTimeoutMillis": 60000000,
+          "idleTimeoutMillis": 2000000,
+          "reapIntervalMillis": 2000000,
+          "createRetryIntervalMillis": 20000
+        }
+      }
     }
   }
 }
