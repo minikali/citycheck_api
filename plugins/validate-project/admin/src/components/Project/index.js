@@ -72,9 +72,10 @@ const Project = props => {
         }}
       />
       <Label htmlFor="address" style={{ marginTop: "10px" }}>{`Address [${coord ? `${coord.lat},${coord.lng}` : "Cannot find coordinates"}]`}</Label>
-      {props.isGooglePlacesAutoLoaded && <LocationSearchInput
+      {<LocationSearchInput
         address={state.address}
         setAddress={addr => {
+          console.log(addr);
           setState({ ...state, address: addr });
         }}
         setCoord={setCoord}

@@ -15,12 +15,12 @@ import useScript from "../../../../../manage-phases/admin/src/hook/useScript";
 const HomePage = () => {
   const [projects, setProjects] = useState(null);
   const [phases, setPhases] = useState(null);
-  const [isGooglePlacesAutoLoaded] = useScript(
-    "https://maps.googleapis.com/maps/api/js?key=AIzaSyAr2ugrwLtCWxdkM1qLJbgbCPzQqr9oC14&libraries=places"
-  );
+  // const [isGooglePlacesAutoLoaded] = useScript(
+  //   "https://maps.googleapis.com/maps/api/js?key=AIzaSyAr2ugrwLtCWxdkM1qLJbgbCPzQqr9oC14&libraries=places"
+  // );
   const getNotValidatedProjects = async () => {
-    const response = await request("/projects");
-
+    const response = await request("/projects?_limit=-1");
+    console.log("/projects", response);
     setProjects(response.filter(project => project.valid !== true));
   };
 
@@ -52,7 +52,6 @@ const HomePage = () => {
         phasesOption={phases}
         description={description}
         justify={justify}
-        isGooglePlacesAutoLoaded={isGooglePlacesAutoLoaded}
       />
     );
   });
