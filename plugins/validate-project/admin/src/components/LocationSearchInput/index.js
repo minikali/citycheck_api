@@ -28,7 +28,7 @@ const LocationSearchInput = props => {
         });
       })
       .catch(error => {
-        // console.error(error);
+        console.error(error);
         setTimeout(
           () => {
             getCoord(addr);

@@ -38,24 +38,21 @@ const HomePage = () => {
   const [phases, setPhases] = useState(null);
   const [projectList, setProjectList] = useState([]);
   const [delay, setDelay] = useState(JSON.parse(localStorage.getItem("google_api_delay")) || "500");
+  const [countValid, setCountValid] = useState(0);
 
   useEffect(() => {
     localStorage.setItem("google_api_delay", delay);
   }, [delay])
 
 
-  const validate = id => {
-    setProjects(projects.map(project => {
-      if (project.id === id) {
-        return { ...project, valid: true }
-      }
-      return project;
-    }))
+  const validate = () => {
+    setCountValid(countValid + 1);
   }
   
 
   useInterval(() => {
     if (projects && projects.length > 0 && phases && phases.length > 0) {
+      console.log("projects", projects);
       const project = projects[0];
       const projectComponent = <Project
         id={project.id}
@@ -68,7 +65,8 @@ const HomePage = () => {
         validate={validate}
       />;
       // eq. pop()
-      setProjects(projects.filter(item => item.id !== project.id));
+      console.log("projects 1", projects);
+      setProjects(projects.filter(item => item.id !== project.id), () => console.log("projects 2", projects));
       // eq. push()
       setProjectList([...projectList, projectComponent]);
     }
@@ -108,7 +106,7 @@ const HomePage = () => {
         <div className={"col-8"}>
           {projectList &&
           <>
-          <h2>Number of projects : {`${projectList.length}`}</h2>
+          <h2>Number of projects : {`${projectList.length}(${countValid})`}</h2>
             <div className="project-list">
               {projectList}
             </div>
