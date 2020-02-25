@@ -40,6 +40,7 @@
     "strapi-plugin-users-permissions": "^3.0.0-next.41",
     "strapi-provider-email-nodemailer": "^2.0.0",
     "strapi-provider-email-sendgrid": "^3.0.0-beta.18.7",
+    "strapi-provider-upload-local": "^3.0.0-beta.18.7",
     "strapi-utils": "3.0.0-beta.18.3",
     "striptags": "^3.1.1",
     "styled-components": "^4.4.1",
