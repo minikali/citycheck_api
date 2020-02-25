@@ -17,6 +17,7 @@ const Project = props => {
 
   const validateProject = async () => {
     try {
+      setShow(false);
       const response = await request("/validate-project/validateProject", {
         method: "POST",
         body: {
@@ -26,7 +27,6 @@ const Project = props => {
       });
 
       strapi.notification.info(`Project ${props.id}:${state.title} validated`);
-      setShow(false);
       props.validate();
     } catch (error) {
       strapi.notification.error(`${error}`);

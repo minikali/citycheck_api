@@ -60,15 +60,6 @@ const LocationSearchInput = props => {
     getCoord(address);
   }, [address]);
 
-  // useEffect(() => {
-  //   if (!coord) {
-  //     console.log("coord null", id);
-  //     getCoord(address);
-  //   } else {
-  //     console.log("coord not null", id);
-  //   }
-  // });
-
   const renderFx = ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
     return (
       <div>

@@ -10,8 +10,6 @@ import {
   request
 } from "strapi-helper-plugin";
 import Project from '../../components/Project';
-import { Select, Textarea, InputText, Button, Label } from "@buffetjs/core";
-import useScript from "../../../../../manage-phases/admin/src/hook/useScript";
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -52,7 +50,6 @@ const HomePage = () => {
 
   useInterval(() => {
     if (projects && projects.length > 0 && phases && phases.length > 0) {
-      console.log("projects", projects);
       const project = projects[0];
       const projectComponent = <Project
         id={project.id}
@@ -65,8 +62,7 @@ const HomePage = () => {
         validate={validate}
       />;
       // eq. pop()
-      console.log("projects 1", projects);
-      setProjects(projects.filter(item => item.id !== project.id), () => console.log("projects 2", projects));
+      setProjects(projects.filter(item => item.id !== project.id));
       // eq. push()
       setProjectList([...projectList, projectComponent]);
     }
