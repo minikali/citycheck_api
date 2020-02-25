@@ -43,6 +43,17 @@ const HomePage = () => {
     localStorage.setItem("google_api_delay", delay);
   }, [delay])
 
+
+  const validate = id => {
+    setProjects(projects.map(project => {
+      if (project.id === id) {
+        return { ...project, valid: true }
+      }
+      return project;
+    }))
+  }
+  
+
   useInterval(() => {
     if (projects && projects.length > 0 && phases && phases.length > 0) {
       const project = projects[0];
@@ -54,6 +65,7 @@ const HomePage = () => {
         phasesOption={project.phases}
         description={project.description}
         justify={project.justify}
+        validate={validate}
       />;
       // eq. pop()
       setProjects(projects.filter(item => item.id !== project.id));
@@ -85,6 +97,7 @@ const HomePage = () => {
     getNotValidatedProjects();
     getPhasesName();
   }, []);
+
   return (
     <div className={"container-fluid"} style={{ padding: "18px 30px" }}>
       <PluginHeader
@@ -93,7 +106,6 @@ const HomePage = () => {
       />
       <div className="row">
         <div className={"col-8"}>
-          {!projectList || projectList.length === 0 && <h3>No project to validate</h3>}
           {projectList &&
           <>
           <h2>Number of projects : {`${projectList.length}`}</h2>
@@ -101,6 +113,7 @@ const HomePage = () => {
               {projectList}
             </div>
           </>}
+          {!projectList || projectList.length === 0 && <h3>No project to validate</h3>}
         </div>
         <div className={"col-4"}>
         <h2>Settings</h2>

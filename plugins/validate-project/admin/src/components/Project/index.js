@@ -27,6 +27,7 @@ const Project = props => {
 
       strapi.notification.info(`Project ${props.id}:${state.title} validated`);
       setShow(false);
+      props.validate(state.id);
     } catch (error) {
       strapi.notification.error(`${error}`);
     }
