@@ -65,7 +65,7 @@ const HomePage = () => {
   //       );
   //     });
 
-  console.log(Projects);
+  // console.log(Projects);
 
   useInterval(() => {
       console.log("hello")
