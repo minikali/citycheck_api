@@ -14,7 +14,7 @@ const greenOutline = {
 }
 
 const LocationSearchInput = props => {
-  const { address, setAddress, setCoord, id } = props;
+  const { address, setAddress, coord, setCoord, id } = props;
   const [style, setStyle] = useState(redOutline);
 
   const getCoord = addr => {
@@ -28,6 +28,7 @@ const LocationSearchInput = props => {
         });
       })
       .catch(error => {
+        console.error(error);
         setCoord(null);
         setStyle(redOutline);
       });
@@ -51,6 +52,15 @@ const handleError = (status, clearSuggestions) => {
   useEffect(() => {
     getCoord(address);
   }, [address]);
+
+  // useEffect(() => {
+  //   if (!coord) {
+  //     console.log("coord null", id);
+  //     getCoord(address);
+  //   } else {
+  //     console.log("coord not null", id);
+  //   }
+  // });
 
   const renderFx = ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
     return (

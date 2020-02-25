@@ -15,7 +15,22 @@ const Initializer = ({ updatePlugin }) => {
   useEffect(() => {
     ref.current(pluginId, 'isReady', true);
   }, []);
-
+  // useEffect(() => {
+  //   const script = document.createElement("script");
+  //   script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAr2ugrwLtCWxdkM1qLJbgbCPzQqr9oC14&libraries=places";
+  //   script.async = true;
+  //   script.defer = true;
+  //   script.onload = () => {
+  //     console.log("Google places Autocomplete loaded");
+  //   };
+  //   script.onerror = () => {
+  //     console.log("Could not load Google places Autocomplete");
+  //   };
+  //   document.body.appendChild(script);
+  //   return () => {
+  //     document.body.removeChild(script);
+  //   };
+  // });
   return null;
 };
 

@@ -5,7 +5,7 @@ const useScript = url => {
 
   useEffect(() => {
     const script = document.createElement("script");
-    script.src = url;
+    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAr2ugrwLtCWxdkM1qLJbgbCPzQqr9oC14&libraries=places";
     script.async = true;
     script.defer = true;
     script.onload = () => {
