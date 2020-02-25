@@ -27,7 +27,6 @@ const Project = props => {
 
       strapi.notification.info(`Project ${props.id}:${state.title} validated`);
       setShow(false);
-      props.removeFromList(state.id);
     } catch (error) {
       strapi.notification.error(`${error}`);
     }
@@ -76,7 +75,6 @@ const Project = props => {
       {<LocationSearchInput
         address={state.address}
         setAddress={addr => {
-          console.log(addr);
           setState({ ...state, address: addr });
         }}
         coord={coord}

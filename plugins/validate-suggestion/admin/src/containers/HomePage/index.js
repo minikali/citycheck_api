@@ -20,7 +20,7 @@ const HomePage = () => {
   const getProjectWithSuggestions = async () => {
     try {
       // Returns an array of object
-      const response = await request("/projects");
+      const response = await request("/projects?_limit=-1");
       // Remove projects without suggestions
       const projectWithSuggestion = response.filter(({ userSuggest }) => userSuggest.length > 0);
       return projectWithSuggestion;

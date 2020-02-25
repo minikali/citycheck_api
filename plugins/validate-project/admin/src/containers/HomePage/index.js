@@ -34,47 +34,19 @@ function useInterval(callback, delay) {
 }
 
 const HomePage = () => {
-  const [itemPerPage, setItemPerPage] = useState(5);
-  const [page, setPage] = useState(1);
-  const [maxPage, setMaxPage] = useState(0);
   const [projects, setProjects] = useState(null);
   const [phases, setPhases] = useState(null);
-  const [projectList, setProjectList] = useState(null);
+  const [projectList, setProjectList] = useState([]);
+  const [delay, setDelay] = useState(JSON.parse(localStorage.getItem("google_api_delay")) || "500");
 
-  // const removeFromList = id => {
-  //   setProjects(projects.filter(project => project.id !== id));
-  // }
-
-  // const Projects = projects && phases &&
-  //   projects
-  //     .slice((page - 1) * itemPerPage, page * itemPerPage)
-  //     .map(project => {
-  //       const { id, title, address, phase, description, justify } = project;
-  //       return (
-  //         <Project
-  //           key={id}
-  //           id={id}
-  //           title={title}
-  //           address={address}
-  //           currentPhase={phase ? phase : 1}
-  //           phasesOption={phases}
-  //           description={description}
-  //           justify={justify}
-  //           removeFromList={removeFromList}
-  //         />
-  //       );
-  //     });
-
-  // console.log(Projects);
+  useEffect(() => {
+    localStorage.setItem("google_api_delay", delay);
+  }, [delay])
 
   useInterval(() => {
-      console.log("hello")
-      if (projects && phases) {
-      console.log("world")
+    if (projects && projects.length > 0 && phases && phases.length > 0) {
       const project = projects[0];
-      setProjects(projects.filter(item => item != project));
       const projectComponent = <Project
-        key={project.id}
         id={project.id}
         title={project.title}
         address={project.address}
@@ -83,75 +55,18 @@ const HomePage = () => {
         description={project.description}
         justify={project.justify}
       />;
-      setProjectList({ ...projectList, projectComponent }, () => {
-        console.log(projectList);
-      });
+      // eq. pop()
+      setProjects(projects.filter(item => item.id !== project.id));
+      // eq. push()
+      setProjectList([...projectList, projectComponent]);
     }
-  }, 250);
-
-  // useEffect(() => {
-  //     const interval = setInterval(() => {
-  //     if (projects && phases) {
-  //       console.log("world")
-  //       const project = projects[0];
-  //       setProjects(projects.filter(item => item != project));
-  //       const projectComponent = <Project
-  //         key={project.id}
-  //         id={project.id}
-  //         title={project.title}
-  //         address={project.address}
-  //         currentPhase={project.phase ? project.phase : 1}
-  //         phasesOption={project.phases}
-  //         description={project.description}
-  //         justify={project.justify}
-  //       />;
-  //       setProjectList({ ...projectList, projectComponent }, () => {
-  //         console.log(projectList);
-  //       });
-  //     }
-  //   }, 250);
-  //   return () => clearInterval(interval);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (projects && phases)
-  //     setProjectList(projects
-  //       .slice((page - 1) * itemPerPage, page * itemPerPage)
-  //       .map(project => {
-  //         const { id, title, address, phase, description, justify } = project;
-  //         return (
-  //           <Project
-  //             key={id}
-  //             id={id}
-  //             title={title}
-  //             address={address}
-  //             currentPhase={phase ? phase : 1}
-  //             phasesOption={phases}
-  //             description={description}
-  //             justify={justify}
-  //           />
-  //         );
-  //       })
-  //     )
-  // }, [page, projects, phases]);
-
-  // useEffect(() => {
-  //   console.log(projectList);
-  // }, [projectList]);
-
-  // useEffect(() => {
-  //   if (projects) {
-  //     setProjects(projects.filter(project => project.valid !== true));
-  //     setMaxPage(projects.length / itemPerPage);
-  //   }
-  // }, [projects])
+  }, parseInt(delay, 10));
 
   const getNotValidatedProjects = async () => {
     const response = await request("/projects?_limit=-1&valid=false");
 
     const projects = response.filter(project => project.valid !== true);
     setProjects(projects);
-    setMaxPage(Math.ceil(projects.length / itemPerPage));
   };
 
   const getPhasesName = async () => {
@@ -170,7 +85,6 @@ const HomePage = () => {
     getNotValidatedProjects();
     getPhasesName();
   }, []);
-
   return (
     <div className={"container-fluid"} style={{ padding: "18px 30px" }}>
       <PluginHeader
@@ -179,42 +93,36 @@ const HomePage = () => {
       />
       <div className="row">
         <div className={"col-8"}>
-          {/* {!Projects && <h3>No project to validate</h3>} */}
+          {!projectList || projectList.length === 0 && <h3>No project to validate</h3>}
           {projectList &&
+          <>
+          <h2>Number of projects : {`${projectList.length}`}</h2>
             <div className="project-list">
               {projectList}
-              <div className="pagination">
-                <Button
-                  style={{ margin: "12px auto 0px auto" }}
-                  label={"Prev."}
-                  onClick={() => setPage(page > 1 ? page - 1 : page)}
-                  disabled={page === 1 ? true : false}
-                />
-                <form>
-                  <InputText
-                    style={{ margin: "12px auto 0px auto" }}
-                    id={`pagination`}
-                    name={"pagination"}
-                    placeholder={"1"}
-                    type={"number"}
-                    value={page.toString()}
-                    onChange={({ target: { value } }) => {
-                      if (value > 0 && value < maxPage)
-                        setPage(value);
-                    }} />
-                </form>
-                <Button
-                  style={{ margin: "12px auto 0px auto" }}
-                  label={"Next"}
-                  onClick={() => setPage(page < maxPage ? page + 1 : page)}
-                  disabled={page === maxPage ? true : false}
-                />
-              </div>
             </div>
-          }
+          </>}
         </div>
-        <div className={"col-8"}>
-
+        <div className={"col-4"}>
+        <h2>Settings</h2>
+          <label for="delay" title="If you are getting too much errors, try to increment this value to call the google api slower">Google API call delay (ms)</label>
+          <select
+            name="delay"
+            id="delay-select"
+            value={delay}
+            onChange={e => setDelay(e.target.value)}
+            style={{ backgroundColor: "#FFFFFF" }}
+          >
+            <option value="100">100 ms</option>
+            <option value="200">200 ms</option>
+            <option value="300">300 ms</option>
+            <option value="400">400 ms</option>
+            <option value="500">500 ms</option>
+            <option value="600">600 ms</option>
+            <option value="700">700 ms</option>
+            <option value="800">800 ms</option>
+            <option value="900">900 ms</option>
+            <option value="1000">1000 ms</option>
+          </select>
         </div>
       </div>
     </div>
