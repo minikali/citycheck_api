@@ -22,9 +22,14 @@ const importNextItem = async importConfig => {
       sourceItem,
       importConfig.fieldMapping
     );
+    const params = importConfig.contentType === "application::project.project" ?
+      {
+        valid: "false",
+      } : null;
     const savedContent = await strapi
       .query(importConfig.contentType)
-      .create(importedItem);
+      .create({ ...importedItem, ...params });
+
     const uploadedFiles = await importMediaFiles(
       savedContent,
       sourceItem,
