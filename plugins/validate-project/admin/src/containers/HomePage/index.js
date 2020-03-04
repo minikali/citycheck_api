@@ -53,6 +53,7 @@ const HomePage = () => {
       const project = projects[0];
       const projectComponent = <Project
         id={project.id}
+        key={project.id}
         title={project.title}
         address={project.address}
         currentPhase={project.phase ? project.phase : 1}
@@ -111,7 +112,7 @@ const HomePage = () => {
         </div>
         <div className={"col-4"}>
         <h2>Settings</h2>
-          <label for="delay" title="If you are getting too much errors, try to increment this value to call the google api slower">Google API call delay (ms)</label>
+          <label htmlFor="delay" title="If you are getting too much errors, try to increment this value to call the google api slower">Google API call delay (ms)</label>
           <select
             name="delay"
             id="delay-select"
