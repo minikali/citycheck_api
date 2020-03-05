@@ -14,48 +14,59 @@ module.exports = {
    * @return {Object}
    */
   validateSuggestion: async ctx => {
-    const { projectId, suggestion } = ctx.request.body;
+    const { suggestion } = ctx.request.body;
+    const { id, phase, justify, userinfo, name } = suggestion;
+
     try {
-      const project = await strapi.query("project").find({ id: projectId });
-      let response = await strapi
+      // Confirm suggestion in DB
+      const newSugg = await strapi
+        .query("project-suggestion")
+        .update(
+          { id },
+          {
+            phase,
+            justify,
+            valid: true
+          });
+      ctx.send(newSugg);
+      const { project } = newSugg;
+      // Push current projects justify and phase in project-histories
+      const newHist = await strapi
+        .query("project-history")
+        .create({
+          phase: project.phase,
+          justify: project.justify,
+          userinfo: project.userinfo,
+          project: project.id,
+          name
+        });
+      // Update current project justify and phase
+      const updatedProj = await strapi
         .query("project")
         .update(
-          { id: projectId },
+          { id: project.id },
           {
-            userSuggest: project[0].userSuggest.map(userSuggest => {
-              return userSuggest.id === suggestion.id ? {
-                ...userSuggest,
-                justify: project[0].justify,
-                phase: project[0].phase,
-                valid: true
-              } : userSuggest;
-            })
-          });
-      ctx.send(response);
-      response = await strapi
-        .query("project")
-        .update(
-          { id: projectId },
-          {
-            justify: suggestion.justify,
-            phase: suggestion.phase
-          });
-      ctx.send(response);
+          phase,
+          justify,
+        });
+        console.log("updatedProj", updatedProj)
+        // TODO delete all confirmations
+        const { project_confirmations } = updatedProj;
+        project_confirmations.forEach(async el => {
+          const deletedConfirm = await strapi.query("project-confirmation").delete({ id: el.id });
+          console.log("deletedConfirm", deletedConfirm);
+        });
     } catch (e) {
       console.error(e);
     }
   },
   deleteSuggestion: async ctx => {
-    const { projectId, suggestionId } = ctx.request.body;
+    const { id } = ctx.request.body;
+
     try {
-      const project = await strapi.query("project").find({ id: projectId });
       const response = await strapi
-        .query("project")
-        .update({
-          id: projectId
-        }, {
-          userSuggest: project[0].userSuggest.filter(suggestion => suggestion.id !== suggestionId)
-        });
+        .query("project-suggestion")
+        .delete({ id });
       ctx.send(response);
     } catch (e) {
       console.error(e);

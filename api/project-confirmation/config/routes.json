@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/project-confirmations",
+      "handler": "project-confirmation.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/project-confirmations/count",
+      "handler": "project-confirmation.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/project-confirmations/:id",
+      "handler": "project-confirmation.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/project-confirmations",
+      "handler": "project-confirmation.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/project-confirmations/:id",
+      "handler": "project-confirmation.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/project-confirmations/:id",
+      "handler": "project-confirmation.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

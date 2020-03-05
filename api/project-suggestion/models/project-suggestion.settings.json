@@ -1,0 +1,30 @@
+{
+  "connection": "default",
+  "collectionName": "project_suggestions",
+  "info": {
+    "name": "ProjectSuggestion"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "phase": {
+      "type": "integer"
+    },
+    "justify": {
+      "type": "string"
+    },
+    "project": {
+      "via": "project_suggestions",
+      "model": "project"
+    },
+    "userinfo": {
+      "model": "userinfo"
+    },
+    "valid": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

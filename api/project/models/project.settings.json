@@ -27,17 +27,6 @@
     "phase": {
       "type": "integer"
     },
-    "userConf": {
-      "type": "component",
-      "repeatable": true,
-      "component": "confirm.project-confirm",
-      "required": false
-    },
-    "userSuggest": {
-      "type": "component",
-      "repeatable": true,
-      "component": "suggest.project-suggest"
-    },
     "userinfo": {
       "model": "userinfo"
     },
@@ -48,6 +37,18 @@
     },
     "justify": {
       "type": "string"
+    },
+    "project_suggestions": {
+      "collection": "project-suggestion",
+      "via": "project"
+    },
+    "project_histories": {
+      "collection": "project-history",
+      "via": "project"
+    },
+    "project_confirmations": {
+      "collection": "project-confirmation",
+      "via": "project"
     }
   }
 }

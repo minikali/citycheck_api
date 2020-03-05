@@ -1,0 +1,23 @@
+{
+  "connection": "default",
+  "collectionName": "project_confirmations",
+  "info": {
+    "name": "project-confirmation"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "userinfo": {
+      "model": "userinfo"
+    },
+    "project": {
+      "via": "project_confirmations",
+      "model": "project"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}

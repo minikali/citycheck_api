@@ -9,21 +9,17 @@ import {
   PluginHeader,
   request
 } from "strapi-helper-plugin";
-import Project from '../../components/Project';
-
-// import PropTypes from 'prop-types';
+import Suggestion from '../../components/Suggestion';
 
 const HomePage = () => {
-  const [projects, setProjects] = useState(null);
+  const [suggestions, setSuggestions] = useState(null);
   const [phases, setPhases] = useState(null);
 
-  const getProjectWithSuggestions = async () => {
+  const getSuggestions = async () => {
     try {
-      // Returns an array of object
-      const response = await request("/projects?_limit=-1");
-      // Remove projects without suggestions
-      const projectWithSuggestion = response.filter(({ userSuggest }) => userSuggest.length > 0);
-      return projectWithSuggestion;
+      const response = await request("/project-suggestions?_limit=-1&valid=false");
+  
+      setSuggestions(response);
     } catch (e) {
       console.error(e);
       return null;
@@ -31,25 +27,38 @@ const HomePage = () => {
   };
 
   const getPhasesName = async () => {
-    const response = await request("/phases");
-    return response.map(phase => {
-      return {
-        label: phase.phaseName,
-        value: phase.phaseNumber
-      }
-    });
+    try {
+      const response = await request("/phases");
+      setPhases(response.map(phase => {
+        return {
+          label: phase.phaseName,
+          value: phase.phaseNumber
+        }
+      }));
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   useEffect(() => {
-    getProjectWithSuggestions().then(projectWithSuggestion => setProjects(projectWithSuggestion));
-    getPhasesName().then(phases => setPhases(phases));
+    getSuggestions();
+    getPhasesName();
   }, []);
 
-  const Projects = (projects && phases) ? projects.map(project => {
-    const projectWithInvalidSuggestion = project.userSuggest.filter(suggestion => suggestion.valid === false || suggestion.valid === null);
-    if (projectWithInvalidSuggestion.length === 0) return null;
+  const Suggestions = (suggestions && phases) ? suggestions.map(item => {
+    const {id, phase, justify, project, created_at, userinfo, valid } = item;
     return (
-      <Project project={project} phases={phases} />
+      <Suggestion
+        key={id}
+        id={id}
+        phase={phase}
+        justify={justify}
+        project={project}
+        created_at={created_at}
+        userinfo={userinfo}
+        valid={valid}
+        phases={phases}
+      />
     );
   }) : [];
 
@@ -61,8 +70,7 @@ const HomePage = () => {
       />
       <div className="row">
         <div className={"col-12"}>
-          {Projects}
-          {!Projects && <div>No suggestion to validate</div>}
+          {Suggestions && Suggestions.length > 0 ? Suggestions : <div>No suggestion to validate</div> }
         </div>
       </div>
     </div>

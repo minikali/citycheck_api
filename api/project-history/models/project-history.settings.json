@@ -1,0 +1,29 @@
+{
+  "connection": "default",
+  "collectionName": "project_histories",
+  "info": {
+    "name": "ProjectHistory"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "justify": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "integer"
+    },
+    "userinfo": {
+      "model": "userinfo"
+    },
+    "project": {
+      "via": "project_histories",
+      "model": "project"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}
