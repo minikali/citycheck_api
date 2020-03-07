@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/",
+      "handler": "Sitemap.index",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/submitPlace",
+      "handler": "Sitemap.submitPlace",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/deletePlace",
+      "handler": "Sitemap.deletePlace",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

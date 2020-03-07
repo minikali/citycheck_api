@@ -1,0 +1,25 @@
+{
+  "connection": "default",
+  "collectionName": "sitemaps",
+  "info": {
+    "name": "sitemap"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "path": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}
