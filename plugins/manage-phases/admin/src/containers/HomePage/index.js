@@ -11,23 +11,23 @@ import {
   request
 } from "strapi-helper-plugin";
 
-const initialPhase = {
-  phase1: {
+const initialPhase = [
+  {
     id: null,
-    label: "Phase 1",
+    label: "Nom de la phase 1",
     value: 1
   },
-  phase2: {
+  {
     id: null,
-    label: "Phase 2",
+    label: "Nom de la phase 2",
     value: 2
   },
-  phase3: {
+  {
     id: null,
-    label: "Phase 3",
+    label: "Nom de la phase 3",
     value: 3
   }
-};
+];
 
 const HomePage = () => {
   const [phases, setPhases] = useState(initialPhase);
@@ -35,28 +35,11 @@ const HomePage = () => {
   const getPhases = async () => {
     const response = await request("/phases");
 
-    if (!response) return;
-    const phase1 = response.filter(phase => phase.phaseNumber === 1);
-    const phase2 = response.filter(phase => phase.phaseNumber === 2);
-    const phase3 = response.filter(phase => phase.phaseNumber === 3);
-    setPhases({
-      ...phases,
-      phase1: {
-        ...phases.phase1,
-        id: phase1 && phase1[0] ? phase1[0].id : null,
-        label: phase1 && phase1[0] ? phase1[0].phaseName : "Phase 1"
-      },
-      phase2: {
-        ...phases.phase2,
-        id: phase2 && phase2[0] ? phase2[0].id : null,
-        label: phase2 && phase2[0] ? phase2[0].phaseName : "Phase 2"
-    },
-      phase3: {
-        ...phases.phase3,
-        id: phase3 && phase3[0] ? phase3[0].id : null,
-        label: phase3 && phase3[0] ? phase3[0].phaseName : "Phase 3"
-    }
-    });
+    // Check if contains all 3 phases
+    setPhases(phases.map(phase => {
+      const ph = response.filter(element => element.value === phase.value).shift();
+      return ph || phase;
+    }));
   };
 
   const submitPhases = async () => {
@@ -74,7 +57,7 @@ const HomePage = () => {
   useEffect(() => {
     getPhases();
   }, []);
-
+  
   return (
     <div className={"container-fluid"} style={{ padding: "18px 30px" }}>
       <PluginHeader
@@ -89,9 +72,9 @@ const HomePage = () => {
             name={"phase-1"}
             placeholder={"phase 1"}
             type={"text"}
-            value={phases.phase1.label}
+            value={phases.filter(phase => phase.value === 1).shift().label}
             onChange={({ target: { value } }) => {
-              setPhases({ ...phases, phase1: { ...phases.phase1, label: value } });
+              setPhases(phases.map(phase => (phase.value === 1 ? { ...phase, label: value } : phase)));
             }}
           />
           <Label htmlFor="Phase 2" style={{ marginTop: "10px" }}>Phase 2</Label>
@@ -100,9 +83,9 @@ const HomePage = () => {
             name={"phase-2"}
             placeholder={"phase 2"}
             type={"text"}
-            value={phases.phase2.label}
+            value={phases.filter(({ value }) => value === 2).shift().label}
             onChange={({ target: { value } }) => {
-              setPhases({ ...phases, phase2: { ...phases.phase2, label: value } });
+              setPhases(phases.map(phase => phase.value === 2 ? { ...phase, label: value } : phase));
             }}
           />
           <Label htmlFor="Phase 3" style={{ marginTop: "10px" }}>Phase 3</Label>
@@ -111,9 +94,9 @@ const HomePage = () => {
             name={"phase-3"}
             placeholder={"phase 3"}
             type={"text"}
-            value={phases.phase3.label}
+            value={phases.filter(({ value }) => value === 3).shift().label}
             onChange={({ target: { value } }) => {
-              setPhases({ ...phases, phase3: { ...phases.phase3, label: value } });
+              setPhases(phases.map(phase => phase.value === 3 ? { ...phase, label: value } : phase));
             }}
           />
           <Button

@@ -9,10 +9,10 @@
     "timestamps": true
   },
   "attributes": {
-    "phaseName": {
+    "label": {
       "type": "string"
     },
-    "phaseNumber": {
+    "value": {
       "type": "integer"
     }
   }

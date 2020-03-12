@@ -8,35 +8,33 @@
 
 const updatePhase = async (id, label, ctx) => {
   try {
-    await strapi
+    const res = await strapi
       .query("phase")
       .update(
-        { id: id },
+        { id },
         {
-          phaseName: label
+          label
         });
-    ctx.send({
-      message: `Phase ${id} updated`
-    });
+    ctx.send(res);
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    ctx.send(error);
   }
 };
 
-const createPhase = async (phaseNumber, label, ctx) => {
+const createPhase = async (value, label, ctx) => {
   try {
-    await strapi
+    const res = await strapi
       .query("phase")
       .create(
         {
-          phaseNumber: phaseNumber,
-          phaseName: label
+          value,
+          label
         });
-    ctx.send({
-      message: `Phase ${id} created`
-    });
+    ctx.send(res);
   } catch (error) {
-    console.log(erro);
+    console.error(error);
+    ctx.send(error);
   }
 };
 
@@ -49,15 +47,14 @@ module.exports = {
    */
   submitPhases: async ctx => {
     const phases = ctx.request.body;
-
-    Object.values(phases).forEach(phase => {
-      if (!phase.id)
-        createPhase(phase.value, phase.label, ctx);
+    phases.forEach(({ id, label, value }) => {
+      if (!id)
+        createPhase(value, label, ctx);
       else
-        updatePhase(phase.id, phase.label, ctx);
+        updatePhase(id, label, ctx);
     });
     ctx.send({
-      message: 'Phases updated'
+      message: 'ok'
     });
   },
   index: async (ctx) => {
