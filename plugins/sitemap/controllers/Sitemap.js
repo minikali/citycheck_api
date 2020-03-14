@@ -36,7 +36,7 @@ module.exports = {
         .create(
           {
             title,
-            path,
+            path: path.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(" ", "-"),
             address
           });
       ctx.send({
