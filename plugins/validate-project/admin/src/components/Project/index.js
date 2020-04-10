@@ -88,9 +88,9 @@ const Project = props => {
 
   useEffect(() => {
     (async () => {
-      const title = (await translate(state.title, props.lang === "fr" ? "en" : "fr")).text[0];
-      const description = (await translate(state.description, props.lang === "fr" ? "en" : "fr")).text[0];
-      const justify = (await translate(state.justify, props.lang === "fr" ? "en" : "fr")).text[0];
+      const title = state.title && (await translate(state.title, props.lang === "fr" ? "en" : "fr")).text[0];
+      const description = state.description && (await translate(state.description, props.lang === "fr" ? "en" : "fr")).text[0];
+      const justify = state.justify && (await translate(state.justify, props.lang === "fr" ? "en" : "fr")).text[0];
       const t = {
         title: title,
         phase: state.phase,
