@@ -1,0 +1,22 @@
+{
+  "info": {
+    "name": "translation"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "key": {
+      "type": "string"
+    },
+    "fr": {
+      "type": "text"
+    },
+    "en": {
+      "type": "text"
+    }
+  },
+  "connection": "default",
+  "collectionName": "translations"
+}

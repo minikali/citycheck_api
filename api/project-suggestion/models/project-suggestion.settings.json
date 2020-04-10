@@ -2,7 +2,7 @@
   "connection": "default",
   "collectionName": "project_suggestions",
   "info": {
-    "name": "ProjectSuggestion"
+    "name": "Project-Suggestion"
   },
   "options": {
     "increments": true,
@@ -15,16 +15,20 @@
     "justify": {
       "type": "string"
     },
-    "project": {
-      "via": "project_suggestions",
-      "model": "project"
-    },
     "userinfo": {
       "model": "userinfo"
     },
     "valid": {
       "type": "boolean",
       "default": false
+    },
+    "french_project": {
+      "via": "project_suggestions",
+      "model": "french-project"
+    },
+    "english_project": {
+      "via": "project_suggestions",
+      "model": "english-project"
     }
   }
 }

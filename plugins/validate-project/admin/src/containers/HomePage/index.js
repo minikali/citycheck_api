@@ -32,9 +32,11 @@ function useInterval(callback, delay) {
 }
 
 const HomePage = () => {
-  const [projects, setProjects] = useState(null);
+  const [frenchProjects, setFrenchProjects] = useState(null);
+  const [englishProjects, setEnglishProjects] = useState(null);
+  const [frenchProjectList, setFrenchProjectList] = useState([]);
+  const [englishProjectList, setEnglishProjectList] = useState([]);
   const [phases, setPhases] = useState(null);
-  const [projectList, setProjectList] = useState([]);
   const [delay, setDelay] = useState(JSON.parse(localStorage.getItem("google_api_delay")) || "500");
   const [countValid, setCountValid] = useState(0);
 
@@ -46,50 +48,79 @@ const HomePage = () => {
   const validate = () => {
     setCountValid(countValid + 1);
   }
-  
+
 
   useInterval(() => {
-    if (projects && projects.length > 0 && phases && phases.length > 0) {
-      const project = projects[0];
+    if (frenchProjects && frenchProjects.length > 0 && phases && phases.length > 0) {
+      const project = frenchProjects[0];
       const projectComponent = <Project
         id={project.id}
         key={project.id}
         title={project.title}
         address={project.address}
         currentPhase={project.phase ? project.phase : 1}
-        phasesOption={project.phases}
+        phasesOption={phases}
         description={project.description}
         justify={project.justify}
         validate={validate}
+        lang="fr"
       />;
       // eq. pop()
-      setProjects(projects.filter(item => item.id !== project.id));
+      setFrenchProjects(frenchProjects.filter(item => item.id !== project.id));
       // eq. push()
-      setProjectList([...projectList, projectComponent]);
+      setFrenchProjectList([...frenchProjectList, projectComponent]);
+    }
+    if (englishProjects && englishProjects.length > 0 && phases && phases.length > 0) {
+      const project = englishProjects[0];
+      console.log(phases);
+      const projectComponent = <Project
+        id={project.id}
+        key={project.id}
+        title={project.title}
+        address={project.address}
+        currentPhase={project.phase ? project.phase : 1}
+        phasesOption={phases}
+        description={project.description}
+        justify={project.justify}
+        validate={validate}
+        lang="en"
+      />;
+      // eq. pop()
+      setEnglishProjects(englishProjects.filter(item => item.id !== project.id));
+      // eq. push()
+      setEnglishProjectList([...englishProjectList, projectComponent]);
     }
   }, parseInt(delay, 10));
 
-  const getNotValidatedProjects = async () => {
-    const response = await request("/projects?_limit=-1&valid=false");
+  const getNotValidatedFrenchProjects = async () => {
+    const response = await request("/french-projects?_limit=-1&valid=false");
 
     const projects = response.filter(project => project.valid !== true);
-    setProjects(projects);
+    setFrenchProjects(projects);
+  };
+
+  const getNotValidatedEnglishProjects = async () => {
+    const response = await request("/english-projects?_limit=-1&valid=false");
+
+    const projects = response.filter(project => project.valid !== true);
+    setEnglishProjects(projects);
   };
 
   const getPhasesName = async () => {
     const response = await request("/phases");
-
+    console.log(response);
     setPhases(
       response.map(phase => {
         return {
-          label: phase.phaseName,
-          value: phase.phaseNumber
+          label: phase.label,
+          value: phase.value
         }
       }));
   }
 
   useEffect(() => {
-    getNotValidatedProjects();
+    getNotValidatedFrenchProjects();
+    getNotValidatedEnglishProjects();
     getPhasesName();
   }, []);
 
@@ -100,18 +131,8 @@ const HomePage = () => {
         description={"Validate projects from users and imports"}
       />
       <div className="row">
-        <div className={"col-8"}>
-          {projectList &&
-          <>
-          <h2>Number of projects : {`${projectList.length}(${countValid})`}</h2>
-            <div className="project-list">
-              {projectList}
-            </div>
-          </>}
-          {!projectList || projectList.length === 0 && <h3>No project to validate</h3>}
-        </div>
-        <div className={"col-4"}>
-        <h2>Settings</h2>
+        <div className={"col-12"}>
+          <h2>Settings</h2>
           <label htmlFor="delay" title="If you are getting too much errors, try to increment this value to call the google api slower">Google API call delay (ms)</label>
           <select
             name="delay"
@@ -131,6 +152,28 @@ const HomePage = () => {
             <option value="900">900 ms</option>
             <option value="1000">1000 ms</option>
           </select>
+        </div>
+      </div>
+      <div className="row">
+        <div className={"col-12"}>
+          {frenchProjectList &&
+            <>
+              <h1>FRENCH PROJECTS</h1>
+              <h2>Number of french projects : {`${frenchProjectList.length}(${countValid})`}</h2>
+              <div className="project-list">
+                {frenchProjectList}
+              </div>
+            </>}
+          {!frenchProjectList || frenchProjectList.length === 0 && <h3>No french project to validate</h3>}
+          {englishProjectList &&
+            <>
+              <h1 style={{ marginTop: "20px" }}>ENGLISH PROJECTS</h1>
+              <h2>Number of english projects : {`${englishProjectList.length}(${countValid})`}</h2>
+              <div className="project-list">
+                {englishProjectList}
+              </div>
+            </>}
+          {!englishProjectList || englishProjectList.length === 0 && <h3>No english project to validate</h3>}
         </div>
       </div>
     </div>

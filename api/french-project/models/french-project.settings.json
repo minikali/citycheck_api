@@ -1,0 +1,53 @@
+{
+  "connection": "default",
+  "collectionName": "french_projects",
+  "info": {
+    "name": "french-project"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "justify": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "integer"
+    },
+    "lng": {
+      "type": "float"
+    },
+    "lat": {
+      "type": "float"
+    },
+    "valid": {
+      "type": "boolean"
+    },
+    "project_confirmations": {
+      "collection": "project-confirmation",
+      "via": "french_project"
+    },
+    "project_histories": {
+      "collection": "project-history",
+      "via": "french_project"
+    },
+    "project_suggestions": {
+      "collection": "project-suggestion",
+      "via": "french_project"
+    },
+    "english_project": {
+      "model": "english-project",
+      "via": "french_project"
+    },
+    "address": {
+      "type": "string"
+    }
+  }
+}

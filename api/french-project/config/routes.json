@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/projects",
-      "handler": "project.find",
+      "path": "/french-projects",
+      "handler": "french-project.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/projects/count",
-      "handler": "project.count",
+      "path": "/french-projects/count",
+      "handler": "french-project.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/projects/:id",
-      "handler": "project.findOne",
+      "path": "/french-projects/:id",
+      "handler": "french-project.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/projects",
-      "handler": "project.create",
+      "path": "/french-projects",
+      "handler": "french-project.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/projects/:id",
-      "handler": "project.update",
+      "path": "/french-projects/:id",
+      "handler": "french-project.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/projects/:id",
-      "handler": "project.delete",
+      "path": "/french-projects/:id",
+      "handler": "french-project.delete",
       "config": {
         "policies": []
       }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
@@ -14,10 +14,11 @@ const greenOutline = {
 }
 
 const LocationSearchInput = props => {
-  const { address, setAddress, coord, setCoord, id } = props;
+  const { address, setAddress, coord, setCoord, id, disabled } = props;
   const [style, setStyle] = useState(redOutline);
-
-  const getCoord = addr => {
+  
+  const getCoord = (addr, bool) => {
+    console.log(addr);
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => {
@@ -29,13 +30,16 @@ const LocationSearchInput = props => {
       })
       .catch(error => {
         console.error(error);
-        setTimeout(
-          () => {
-            getCoord(addr);
-          }
-          ,
-          1000
-        );
+
+        if (bool) {
+          setTimeout(
+            () => {
+              getCoord(addr);
+            }
+            ,
+            1000
+          );
+        }
         setCoord(null);
         setStyle(redOutline);
       });
@@ -43,10 +47,13 @@ const LocationSearchInput = props => {
 
   const handleChange = address => {
     setAddress(address);
+    getCoord(address, false);
+
   };
 
   const handleSelect = address => {
     setAddress(address);
+    getCoord(address, false);
   };
 
   const handleError = (status, clearSuggestions) => {
@@ -57,8 +64,9 @@ const LocationSearchInput = props => {
   };
 
   useEffect(() => {
-    getCoord(address);
-  }, [address]);
+    getCoord(address, true);
+  }, []);
+
 
   const renderFx = ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
     return (
@@ -73,6 +81,7 @@ const LocationSearchInput = props => {
             setState({ ...state, title: value });
           }}
           {...getInputProps({ style })}
+          disabled={disabled}
         />
         <div className="autocomplete-dropdown-container">
           {loading && <div>Loading...</div>}

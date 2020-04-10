@@ -12,12 +12,16 @@
     "userinfo": {
       "model": "userinfo"
     },
-    "project": {
-      "via": "project_confirmations",
-      "model": "project"
-    },
     "name": {
       "type": "string"
+    },
+    "french_project": {
+      "via": "project_confirmations",
+      "model": "french-project"
+    },
+    "english_project": {
+      "via": "project_confirmations",
+      "model": "english-project"
     }
   }
 }

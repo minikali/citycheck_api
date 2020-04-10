@@ -1,0 +1,53 @@
+{
+  "connection": "default",
+  "collectionName": "english_projects",
+  "info": {
+    "name": "english-project"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "justify": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "integer"
+    },
+    "lng": {
+      "type": "float"
+    },
+    "lat": {
+      "type": "float"
+    },
+    "valid": {
+      "type": "boolean"
+    },
+    "project_confirmations": {
+      "collection": "project-confirmation",
+      "via": "english_project"
+    },
+    "project_histories": {
+      "collection": "project-history",
+      "via": "english_project"
+    },
+    "project_suggestions": {
+      "collection": "project-suggestion",
+      "via": "english_project"
+    },
+    "french_project": {
+      "via": "english_project",
+      "model": "french-project"
+    },
+    "address": {
+      "type": "string"
+    }
+  }
+}

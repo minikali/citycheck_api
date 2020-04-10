@@ -2,7 +2,7 @@
   "connection": "default",
   "collectionName": "project_histories",
   "info": {
-    "name": "ProjectHistory"
+    "name": "Project-History"
   },
   "options": {
     "increments": true,
@@ -18,12 +18,16 @@
     "userinfo": {
       "model": "userinfo"
     },
-    "project": {
-      "via": "project_histories",
-      "model": "project"
-    },
     "name": {
       "type": "string"
+    },
+    "french_project": {
+      "via": "project_histories",
+      "model": "french-project"
+    },
+    "english_project": {
+      "via": "project_histories",
+      "model": "english-project"
     }
   }
 }
