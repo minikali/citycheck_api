@@ -14,6 +14,18 @@
     },
     "content": {
       "type": "richtext"
+    },
+    "title_fr": {
+      "type": "string"
+    },
+    "content_fr": {
+      "type": "richtext"
+    },
+    "title_en": {
+      "type": "string"
+    },
+    "content_en": {
+      "type": "richtext"
     }
   }
 }
