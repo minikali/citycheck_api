@@ -35,18 +35,18 @@ const Project = props => {
   const [coord, setCoord] = useState(null);
   const [state, setState] = useState({
     id: props.id,
-    title: props.title,
+    title: props.title || "",
     phase: props.currentPhase,
-    address: props.address,
-    description: props.description,
-    justify: props.justify
+    address: props.address || "",
+    description: props.description || "",
+    justify: props.justify || ""
   });
   const [t, setT] = useState({
-    title: props.title,
+    title: props.title || "",
     phase: props.currentPhase,
-    address: props.address,
-    description: props.description,
-    justify: props.justify
+    address: props.address || "",
+    description: props.description || "",
+    justify: props.justify || ""
   })
 
   const validateProject = async () => {
