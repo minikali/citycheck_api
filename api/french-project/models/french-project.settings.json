@@ -35,12 +35,12 @@
       "via": "french_project"
     },
     "project_histories": {
-      "collection": "project-history",
-      "via": "french_project"
+      "via": "french_project",
+      "collection": "project-history"
     },
     "project_suggestions": {
-      "collection": "project-suggestion",
-      "via": "french_project"
+      "via": "french_project",
+      "collection": "project-suggestion"
     },
     "english_project": {
       "model": "english-project",

@@ -15,7 +15,7 @@ module.exports = {
    */
   validateSuggestion: async ctx => {
     const { suggestion } = ctx.request.body;
-    const { id, phase, justify, userinfo, name } = suggestion;
+    const { id, phase, justify_fr, justify_en, french_project, english_project, userinfo, name } = suggestion;
 
     try {
       // Confirm suggestion in DB
@@ -25,37 +25,57 @@ module.exports = {
           { id },
           {
             phase,
-            justify,
+            justify_fr,
+            justify_en,
+            french_project: !french_project ? english_project.french_project : french_project.id,
+            english_project: !english_project ? french_project.english_project : english_project.id,
             valid: true
           });
+      console.log(newSugg);
       ctx.send(newSugg);
       const { project } = newSugg;
       // Push current projects justify and phase in project-histories
       const newHist = await strapi
         .query("project-history")
         .create({
-          phase: project.phase,
-          justify: project.justify,
-          userinfo: project.userinfo,
-          project: project.id,
+          phase: french_project.phase,
+          justify_fr: newSugg.justify_fr,
+          justify_en: newSugg.justify_en,
+          french_project: newSugg.french_project.id,
+          english_project: newSugg.english_project.id,
+          userinfo: french_project.userinfo,
           name
         });
+      console.log("newHist", newHist);
       // Update current project justify and phase
-      const updatedProj = await strapi
-        .query("project")
+      const updatedEn = await strapi
+        .query("english-project")
         .update(
-          { id: project.id },
+          { id: newSugg.english_project.id },
           {
-          phase,
-          justify,
-        });
-        console.log("updatedProj", updatedProj)
-        // TODO delete all confirmations
-        const { project_confirmations } = updatedProj;
-        project_confirmations.forEach(async el => {
-          const deletedConfirm = await strapi.query("project-confirmation").delete({ id: el.id });
-          console.log("deletedConfirm", deletedConfirm);
-        });
+            phase,
+            justify: justify_en,
+          });
+      const updatedFr = await strapi
+        .query("french-project")
+        .update(
+          { id: newSugg.french_project.id },
+          {
+            phase,
+            justify: justify_fr,
+          });
+      console.log("updatedEn", updatedEn)
+      console.log("updatedFr", updatedFr)
+      // TODO delete all confirmations
+      
+      updatedEn.project_confirmations.forEach(async el => {
+        const deletedConfirm = await strapi.query("project-confirmation").delete({ id: el.id });
+        console.log("deletedConfirm", deletedConfirm);
+      });
+      updatedFr.project_confirmations.forEach(async el => {
+        const deletedConfirm = await strapi.query("project-confirmation").delete({ id: el.id });
+        console.log("deletedConfirm", deletedConfirm);
+      });
     } catch (e) {
       console.error(e);
     }

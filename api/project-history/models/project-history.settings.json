@@ -22,12 +22,18 @@
       "type": "string"
     },
     "french_project": {
-      "via": "project_histories",
-      "model": "french-project"
+      "model": "french-project",
+      "via": "project_histories"
     },
     "english_project": {
-      "via": "project_histories",
-      "model": "english-project"
+      "model": "english-project",
+      "via": "project_histories"
+    },
+    "justify_fr": {
+      "type": "string"
+    },
+    "justify_en": {
+      "type": "string"
     }
   }
 }

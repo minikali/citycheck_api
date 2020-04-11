@@ -18,7 +18,7 @@ const HomePage = () => {
   const getSuggestions = async () => {
     try {
       const response = await request("/project-suggestions?_limit=-1&valid=false");
-  
+      console.log(response);
       setSuggestions(response);
     } catch (e) {
       console.error(e);
@@ -31,8 +31,8 @@ const HomePage = () => {
       const response = await request("/phases");
       setPhases(response.map(phase => {
         return {
-          label: phase.phaseName,
-          value: phase.phaseNumber
+          label: phase.label,
+          value: phase.value
         }
       }));
     } catch (e) {
@@ -46,14 +46,18 @@ const HomePage = () => {
   }, []);
 
   const Suggestions = (suggestions && phases) ? suggestions.map(item => {
-    const {id, phase, justify, project, created_at, userinfo, valid } = item;
+    console.log(item);
+    const {id, phase, justify_fr, justify_en, french_project, english_project, created_at, userinfo, valid } = item;
+
     return (
       <Suggestion
         key={id}
         id={id}
         phase={phase}
-        justify={justify}
-        project={project}
+        justify_fr={justify_fr}
+        justify_en={justify_en}
+        french_project={french_project}
+        english_project={english_project}
         created_at={created_at}
         userinfo={userinfo}
         valid={valid}

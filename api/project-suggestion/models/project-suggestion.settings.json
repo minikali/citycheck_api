@@ -23,12 +23,18 @@
       "default": false
     },
     "french_project": {
-      "via": "project_suggestions",
-      "model": "french-project"
+      "model": "french-project",
+      "via": "project_suggestions"
     },
     "english_project": {
-      "via": "project_suggestions",
-      "model": "english-project"
+      "model": "english-project",
+      "via": "project_suggestions"
+    },
+    "justify_fr": {
+      "type": "text"
+    },
+    "justify_en": {
+      "type": "text"
     }
   }
 }
