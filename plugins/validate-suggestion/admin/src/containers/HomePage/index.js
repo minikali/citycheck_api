@@ -26,27 +26,11 @@ const HomePage = () => {
     }
   };
 
-  const getPhasesName = async () => {
-    try {
-      const response = await request("/phases");
-      setPhases(response.map(phase => {
-        return {
-          label: phase.label,
-          value: phase.value
-        }
-      }));
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   useEffect(() => {
     getSuggestions();
-    getPhasesName();
   }, []);
 
   const Suggestions = (suggestions && phases) ? suggestions.map(item => {
-    console.log(item);
     const {id, phase, justify_fr, justify_en, french_project, english_project, created_at, userinfo, valid } = item;
 
     return (
@@ -61,7 +45,6 @@ const HomePage = () => {
         created_at={created_at}
         userinfo={userinfo}
         valid={valid}
-        phases={phases}
       />
     );
   }) : [];

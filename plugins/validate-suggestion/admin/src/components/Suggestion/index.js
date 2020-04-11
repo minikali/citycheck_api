@@ -40,8 +40,7 @@ const Suggestion = props => {
     french_project,
     english_project,
     created_at,
-    userinfo,
-    phases
+    userinfo
   } = props;
   const [state, setState] = useState({
     justify_fr: justify_fr || "",
@@ -104,7 +103,21 @@ const Suggestion = props => {
     const justify = (await translate(state.justify_en, "fr")).text[0];
     setState({ ...state, justify_fr: justify });
   }
-
+  const phases = [
+    {
+      label: "phase_1",
+      value: 1
+    },
+    {
+      label: "phase_2",
+      value: 2
+    },
+    {
+      label: "phase_3",
+      value: 3
+    }
+  ];
+  console.log(props);
   return (
     show &&
     <div className={"container-fluid row"} style={{ padding: "18px 30px" }}>
@@ -203,14 +216,14 @@ const Suggestion = props => {
       </div>
       <div className={`col-6`}>
         <Project
-          id={project.id}
-          title={project.title}
-          created_at={project.created_at}
-          description={project.description}
-          phase={project.phase}
-          address={project.address}
-          userinfo={project.userinfo}
-          justify={project.justify}
+          id={french_project.id}
+          title={french_project.title}
+          created_at={french_project.created_at}
+          description={french_project.description}
+          phase={french_project.phase}
+          address={french_project.address}
+          userinfo={french_project.userinfo}
+          justify={french_project.justify}
           phases={phases}
         />
       </div>
