@@ -13,7 +13,6 @@ import Suggestion from '../../components/Suggestion';
 
 const HomePage = () => {
   const [suggestions, setSuggestions] = useState(null);
-  const [phases, setPhases] = useState(null);
 
   const getSuggestions = async () => {
     try {
@@ -30,7 +29,7 @@ const HomePage = () => {
     getSuggestions();
   }, []);
 
-  const Suggestions = (suggestions && phases) ? suggestions.map(item => {
+  const Suggestions = suggestions? suggestions.map(item => {
     const {id, phase, justify_fr, justify_en, french_project, english_project, created_at, userinfo, valid } = item;
 
     return (

@@ -3,7 +3,6 @@ import "./style.css";
 
 const Project = props => {
   const { id, title, created_at, description, phase, address, userinfo, justify, phases } = props;
-  console.log(props);
   return (
     <div className={"container-fluid project"} style={{ padding: "18px 30px" }}>
       <h2>{`Project id ${id}`}</h2>
