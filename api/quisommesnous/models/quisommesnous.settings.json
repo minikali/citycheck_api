@@ -12,14 +12,14 @@
     "content": {
       "type": "richtext"
     },
-    "key": {
-      "type": "string"
-    },
-    "fr": {
-      "type": "richtext"
-    },
-    "en": {
-      "type": "richtext"
+    "lang": {
+      "type": "enumeration",
+      "enum": [
+        "fr",
+        "en"
+      ],
+      "default": "fr",
+      "required": true
     }
   }
 }

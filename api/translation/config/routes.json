@@ -47,6 +47,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "GET",
+      "path": "/translations/:lng/translations.json",
+      "handler": "translation.getTranslation",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }
