@@ -15,20 +15,21 @@
     "justify": {
       "type": "string"
     },
-    "userinfo": {
-      "model": "userinfo"
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
     },
     "valid": {
       "type": "boolean",
       "default": false
     },
     "french_project": {
-      "model": "french-project",
-      "via": "project_suggestions"
+      "via": "project_suggestions",
+      "model": "french-project"
     },
     "english_project": {
-      "model": "english-project",
-      "via": "project_suggestions"
+      "via": "project_suggestions",
+      "model": "english-project"
     },
     "justify_fr": {
       "type": "text"

@@ -9,8 +9,9 @@
     "timestamps": true
   },
   "attributes": {
-    "userinfo": {
-      "model": "userinfo"
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
     },
     "name": {
       "type": "string"

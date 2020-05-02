@@ -35,12 +35,12 @@
       "via": "english_project"
     },
     "project_histories": {
-      "via": "english_project",
-      "collection": "project-history"
+      "collection": "project-history",
+      "via": "english_project"
     },
     "project_suggestions": {
-      "via": "english_project",
-      "collection": "project-suggestion"
+      "collection": "project-suggestion",
+      "via": "english_project"
     },
     "french_project": {
       "via": "english_project",
@@ -48,6 +48,14 @@
     },
     "address": {
       "type": "string"
+    },
+    "author": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "justify_author": {
+      "plugin": "users-permissions",
+      "model": "user"
     }
   }
 }

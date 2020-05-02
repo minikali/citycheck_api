@@ -52,6 +52,17 @@
     },
     "email": {
       "type": "email"
+    },
+    "social": {
+      "type": "enumeration",
+      "enum": [
+        "facebook",
+        "google",
+        "email"
+      ]
+    },
+    "name": {
+      "type": "string"
     }
   }
 }

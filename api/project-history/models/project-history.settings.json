@@ -15,19 +15,20 @@
     "phase": {
       "type": "integer"
     },
-    "userinfo": {
-      "model": "userinfo"
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
     },
     "name": {
       "type": "string"
     },
     "french_project": {
-      "model": "french-project",
-      "via": "project_histories"
+      "via": "project_histories",
+      "model": "french-project"
     },
     "english_project": {
-      "model": "english-project",
-      "via": "project_histories"
+      "via": "project_histories",
+      "model": "english-project"
     },
     "justify_fr": {
       "type": "string"
