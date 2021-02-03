@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
+// import PlacesAutocomplete, {
+//   geocodeByAddress,
+//   getLatLng,
+// } from 'react-places-autocomplete';
 import { InputText } from "@buffetjs/core";
 
 const redOutline = {
@@ -110,15 +110,16 @@ const LocationSearchInput = props => {
   };
 
   return (
-    <PlacesAutocomplete
-      value={address}
-      onChange={handleChange}
-      onSelect={handleSelect}
-      onError={handleError}
-      shouldFetchSuggestions={address.length > 3}
-    >
-      {renderFx}
-    </PlacesAutocomplete>
+    // <PlacesAutocomplete
+    //   value={address}
+    //   onChange={handleChange}
+    //   onSelect={handleSelect}
+    //   onError={handleError}
+    //   shouldFetchSuggestions={address.length > 3}
+    // >
+    //   {renderFx}
+    // </PlacesAutocomplete>
+    <></>
   );
 }
 

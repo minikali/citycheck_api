@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
 import { InputText } from "@buffetjs/core";
 
 const redOutline = {
@@ -18,20 +14,20 @@ const LocationSearchInput = props => {
   const [style, setStyle] = useState(redOutline);
 
   const getCoord = addr => {
-    geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => {
-        setStyle(greenOutline);
-        setCoord({
-          lng: latLng.lng,
-          lat: latLng.lat
-        });
-      })
-      .catch(error => {
-        console.error(error);
-        setCoord(null);
-        setStyle(redOutline);
-      });
+    // geocodeByAddress(address)
+    //   .then(results => getLatLng(results[0]))
+    //   .then(latLng => {
+    //     setStyle(greenOutline);
+    //     setCoord({
+    //       lng: latLng.lng,
+    //       lat: latLng.lat
+    //     });
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //     setCoord(null);
+    //     setStyle(redOutline);
+    //   });
   }
 
   const handleChange = address => {
@@ -49,9 +45,9 @@ const LocationSearchInput = props => {
     clearSuggestions();
   };
 
-  useEffect(() => {
-    getCoord(address);
-  }, [address]);
+  // useEffect(() => {
+  //   getCoord(address);
+  // }, [address]);
 
   const renderFx = ({ getInputProps, suggestions, getSuggestionItemProps, loading }) => {
     return (
@@ -69,7 +65,7 @@ const LocationSearchInput = props => {
         />
         <div className="autocomplete-dropdown-container">
           {loading && <div>Loading...</div>}
-          {suggestions.map(suggestion => {
+          {(suggestions || []).map(suggestion => {
             const className = suggestion.active
               ? 'suggestion-item--active'
               : 'suggestion-item';
@@ -94,15 +90,16 @@ const LocationSearchInput = props => {
   };
 
   return (
-    <PlacesAutocomplete
-      value={address}
-      onChange={handleChange}
-      onSelect={handleSelect}
-      onError={handleError}
-      shouldFetchSuggestions={address.length > 3}
-    >
-      {renderFx}
-    </PlacesAutocomplete>
+    // <PlacesAutocomplete
+    //   value={address}
+    //   onChange={handleChange}
+    //   onSelect={handleSelect}
+    //   onError={handleError}
+    //   shouldFetchSuggestions={address.length > 3}
+    // >
+    //   {renderFx}
+    // </PlacesAutocomplete>
+    <></>
   );
 }
 
