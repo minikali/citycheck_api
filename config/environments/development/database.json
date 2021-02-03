@@ -8,8 +8,8 @@
         "database": "citycheck",
         "host": "127.0.0.1",
         "port": 3306,
-        "username": "admin",
-        "password": "farfar31"
+        "username": "root",
+        "password": ""
       },
       "options": {}
     }
