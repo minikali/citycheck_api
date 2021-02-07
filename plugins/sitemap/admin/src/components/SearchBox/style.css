@@ -4,6 +4,9 @@
 .search-box .async-select {
   width: 280px;
 }
+.search-box .async-select__menu {
+  z-index: 999;
+}
 .search-box .async-select__control--is-focused,
 .search-box .async-select__control:hover {
   border-color: var(--primary);

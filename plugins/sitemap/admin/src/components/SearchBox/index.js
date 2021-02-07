@@ -5,19 +5,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import debounce from 'debounce-promise';
 import './style.css';
 
-interface Props {
-  addr: any;
-  setAddr: (v: any) => void;
-  onFocus?: () => void;
-  placeholder?: string;
-}
-
-const defaultProps = {
-  onFocus: null,
-  placeholder: '',
-};
-
-const SearchBox = ({ addr, setAddr, onFocus, placeholder }: Props) => {
+const SearchBox = ({ addr, setAddr, onFocus, placeholder }) => {
   const [show, setShow] = useState(false);
   const [provider] = useState(new OpenStreetMapProvider());
 
@@ -46,8 +34,8 @@ const SearchBox = ({ addr, setAddr, onFocus, placeholder }: Props) => {
     leading: true,
   });
 
-  const handleInputChange = (v: string) => {
-    if (v?.length > 2) setShow(true);
+  const handleInputChange = (v) => {
+    if (v && v.length > 2) setShow(true);
     else setShow(false);
   };
 
@@ -81,5 +69,4 @@ const SearchBox = ({ addr, setAddr, onFocus, placeholder }: Props) => {
   );
 };
 
-SearchBox.defaultProps = defaultProps;
 export default SearchBox;

@@ -4,37 +4,33 @@
  *
  */
 
-import React, { memo, useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
-import pluginId from '../../pluginId';
-import { InputText, Textarea, Button, Label } from "@buffetjs/core";
-import {
-  request
-} from "strapi-helper-plugin";
-import LocationSearchInput from "../../components/LocationSearchInput";
-import "./style.css"
+import React, { memo, useState, useEffect } from "react";
+import { InputText, Button, Label } from "@buffetjs/core";
+import { request } from "strapi-helper-plugin";
+import SearchBox from "../../components/SearchBox";
+import slugify from "slugify";
+import "./style.css";
 
 const HomePage = () => {
   const initialState = {
     title: "",
     path: "",
-    address: "",
-    description: ""
-  }
+  };
   const [place, setPlace] = useState(initialState);
   const [list, setList] = useState(null);
   const [coord, setCoord] = useState(null);
+  const [addr, setAddr] = useState();
 
-  const deletePlace = async id => {
+  const deletePlace = async (id) => {
     try {
       const response = await request("/sitemap/deletePlace", {
         method: "POST",
         body: {
-          place
-        }
+          id,
+        },
       });
       strapi.notification.info(`Place ${id} deleted`);
-      getSiteMap()
+      getSiteMap();
     } catch (e) {
       console.error(e);
       strapi.notification.info(`${e}`);
@@ -55,8 +51,8 @@ const HomePage = () => {
       const response = await request("/sitemap/submitPlace", {
         method: "POST",
         body: {
-          place
-        }
+          place,
+        },
       });
       strapi.notification.info(`New place saved`);
       getSiteMap();
@@ -67,18 +63,43 @@ const HomePage = () => {
     }
   };
 
-  const List = list && list.map(({ id, title, path, address, description }) => {
-    return <tr key={id}>
-      <td>{id}</td><td>{title}</td><td>{path}</td><td>{address}</td><td><Button label={"Delete"}
-        onClick={() => {
-          deletePlace(id);
-        }} /></td>
-    </tr>
-  });
+  const List =
+    list &&
+    list.map(({ id, title, path, address, description }) => {
+      return (
+        <tr key={id}>
+          <td>{id}</td>
+          <td>{title}</td>
+          <td>{path}</td>
+          <td>{address}</td>
+          <td>
+            <Button
+              label={"Delete"}
+              onClick={() => {
+                deletePlace(id);
+              }}
+            />
+          </td>
+        </tr>
+      );
+    });
 
   useEffect(() => {
     getSiteMap();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (addr) {
+      const arr = addr.label.split(", ");
+      setPlace({
+        title: arr[0],
+        path: slugify(`${arr[0]}-${arr[arr.length - 1]}`.toLowerCase()),
+        address: `${arr[0]}, ${arr[arr.length - 1]}`
+      });
+    } else {
+      setPlace(initialState)
+    }
+  }, [addr]);
 
   return (
     <div className="sitemap">
@@ -86,13 +107,17 @@ const HomePage = () => {
       <div className="info">
         <p>Ajouter des villes dans le plan du site</p>
         <br />
-        <p>Example:</p>
-        <p><span>{"Title: "}</span>Paris (Affiché à l'utilisateur)</p>
-        <p><span>{"Path: "}</span>"paris" ou "paris-france" (Doit être unique, sert a créer l'url)</p>
-        <p><span>{"Address: "}</span>Paris, France</p>
+        <p>Saisir une adresse et modifier le titre si nécessaire</p>
       </div>
       <div className="places">
-        <Label htmlFor="title-sitemap" style={{ marginTop: "10px" }}>Title</Label>
+        <Label
+          htmlFor="address"
+          style={{ marginTop: "30px" }}
+        >{`Address`}</Label>
+        <SearchBox addr={addr} setAddr={setAddr} />
+        <Label htmlFor="title-sitemap" style={{ marginTop: "10px" }}>
+          Title
+        </Label>
         <InputText
           id={`title-sitemap`}
           name={"title-sitemap"}
@@ -102,7 +127,9 @@ const HomePage = () => {
             setPlace({ ...place, title: value });
           }}
         />
-        <Label htmlFor="path-sitemap" style={{ marginTop: "10px" }}>Path</Label>
+        <Label htmlFor="path-sitemap" style={{ marginTop: "10px" }}>
+          Path
+        </Label>
         <InputText
           id={`path-sitemap`}
           name={"path-sitemap"}
@@ -111,20 +138,16 @@ const HomePage = () => {
           onChange={({ target: { value } }) => {
             setPlace({ ...place, path: value.toLowerCase() });
           }}
+          disabled={true}
         />
-        <Label htmlFor="address" style={{ marginTop: "10px" }}>{`Address [${coord ? `${coord.lat},${coord.lng}` : "Cannot find coordinates"}]`}</Label>
-        {<LocationSearchInput
-          address={place.address}
-          setAddress={addr => {
-            setPlace({ ...place, address: addr });
-          }}
-          coord={coord}
-          setCoord={setCoord}
-        />}
-        <Button style={{ marginTop: "10px" }} label={"Save"}
+
+        <Button
+          style={{ marginTop: "10px" }}
+          label={"Save"}
           onClick={() => {
             submitPlace();
-          }} />
+          }}
+        />
       </div>
       <div className="list">
         <h2>Liste des liens créer</h2>
@@ -138,12 +161,10 @@ const HomePage = () => {
               <th></th>
             </tr>
           </thead>
-          <tbody>
-            {List}
-          </tbody>
+          <tbody>{List}</tbody>
         </table>
       </div>
-    </div >
+    </div>
   );
 };
 
