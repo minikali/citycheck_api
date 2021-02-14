@@ -23,6 +23,11 @@
       ],
       "default": "fr",
       "required": true
+    },
+    "slug": {
+      "type": "string",
+      "unique": false,
+      "required": true
     }
   }
 }
