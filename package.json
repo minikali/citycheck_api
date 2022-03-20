@@ -20,7 +20,7 @@
     "jquery": "^3.4.1",
     "knex": "<0.20.0",
     "leaflet-geosearch": "^3.2.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "mysql": "^2.18.1",
     "mysql-client": "^0.3.0",
