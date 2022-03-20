@@ -1,14 +1,12 @@
-
 module.exports = {
-  apps : [{
-    name: "citycheck_api",
-    script: "npm",
-    args: "run start",
-    env: {
-      NODE_ENV: "production"
+  apps: [
+    {
+      name: 'citycheck_api',
+      script: 'yarn',
+      args: 'start',
+      env_production: {
+        NODE_ENV: 'production',
+      },
     },
-    env_production: {
-      NODE_ENV: "production"
-    }
-  }],
-};
+  ],
+}
